@@ -1,0 +1,14 @@
+<form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <md-input-container class="input-wrapper">
+    <input md-input type="text" placeholder="用户名" required
+    [(ngModel)]="loginInfo.username" name="username"
+    >
+  </md-input-container>
+  <md-input-container class="input-wrapper">
+    <input md-input type="text" placeholder="密码" required
+    [(ngModel)]="loginInfo.password" name="password"
+    >
+  </md-input-container>
+  <button type="submit" md-raised-button color="primary" class="login-btn">登录</button>
+</form>
+<a routerLink="/sign" routerLinkActive="active" class="link-sign">去注册<md-icon>arrow_forward</md-icon></a>

@@ -1,0 +1,14 @@
+.sign-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px 20px 20px 20px;
+  .input-wrapper {
+    width: 100%;
+  }
+  .sign-btn {
+    background: rgb(0, 188, 212);
+    color: #fff;
+    margin-top: 15px;
+  }
+}

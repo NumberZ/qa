@@ -1,0 +1,38 @@
+$themeColor: #000;
+
+.user-top-container {
+  width: 100%;
+  height: 180px;
+  background: $themeColor;
+  color: #fff;
+  .login-out-btn {
+    background: #fff;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}
+
+.user-middle-container {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-setting {
+  margin: 0px;
+  padding: 20px 0px;
+  font-size: 20px;
+  li {
+    list-style: none;
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(0,0,0,0.3);
+      padding: 10px 15px;
+    }
+  }
+}

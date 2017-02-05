@@ -1,4 +1,13 @@
-<div>
-  <button class="login-out-btn" (onClick)="logOut()">登出</button>
+<div class="user-top-container">
   {{name}}
 </div>
+<div class="user-middle-container">
+  <button md-raised-button (click)="openDialog()">提问<md-icon>edit</md-icon></button>
+</div>
+<ul class="user-setting">
+  <li><a>我的提问<md-icon>chevron_right</md-icon></a></li>
+  <li><a>我的回答<md-icon>chevron_right</md-icon></a></li>
+  <li><a>修改密码<md-icon>chevron_right</md-icon></a></li>
+  <li (click)="logOut()"><a>退出登录<md-icon>chevron_right</md-icon></a></li>
+  <li><a>关于<md-icon>chevron_right</md-icon></a></li>
+</ul>

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
+import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
+
 import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
+import { QuestionService } from '../question.service';
+
 import * as AV from 'leancloud-storage';
 
 @Component({
@@ -12,7 +16,10 @@ import * as AV from 'leancloud-storage';
 export class MeComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private router: Router
+
+    private router: Router,
+    private _dialog: MdDialog,
+    private _snackbar: MdSnackBar
   ) { }
 
   name: string
@@ -30,7 +37,42 @@ export class MeComponent implements OnInit {
   }
 
   logOut() {
+    console.log('logout');
     this.userService.logOut();
+    this.router.navigateByUrl('/login');
   }
 
+  openDialog() {
+    let dialogRef = this._dialog.open(EditDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this._snackbar.open('发布成功', '', {
+        duration: 1000
+      });
+    })
+  }
+}
+
+
+@Component({
+ templateUrl: './edit-dialog.component.html',
+ styleUrls: ['./edit-dialog.component.scss'],
+ providers: [QuestionService]
+})
+export class EditDialog {
+  constructor(
+    @Optional() public dialogRef: MdDialogRef<EditDialog>,
+    private questionService: QuestionService
+    ) { }
+  question: string = '';
+
+  onSubmit() {
+    this.questionService.issueQuestion(this.question)
+    .then((result) => {
+      console.log(result);
+    }, (error) => {
+      alert(JSON.stringify(error));
+    });
+    this.dialogRef.close(this.question);
+  }
 }

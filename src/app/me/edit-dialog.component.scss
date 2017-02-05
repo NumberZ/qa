@@ -1,0 +1,19 @@
+.edit-form {
+  min-width: 250px;
+}
+.textarea-container {
+  width: 100%;
+  .edit-textarea {
+    width: 100%;
+    height: 250px;
+  }
+}
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .confirm-btn {
+    background: #009688;
+    color: #fff;
+  }
+}

@@ -18,7 +18,6 @@ import { HomeComponent } from './home/home.component';
 
 import { UserService } from './user.service';
 import { MeComponent, EditDialog } from './me/me.component';
-import { QuestionCardComponent } from './question-card/question-card.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,7 @@ import { QuestionCardComponent } from './question-card/question-card.component';
     SignComponent,
     HomeComponent,
     MeComponent,
-    EditDialog,
-    QuestionCardComponent
+    EditDialog
   ],
   imports: [
     BrowserModule,

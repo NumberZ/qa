@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionService } from '../question.service';
+import { Router } from '@angular/router';
+import * as AV from 'leancloud-storage';
 
+import { QuestionService } from '../question.service';
 import { Question } from '../define/question';
 
 @Component({
@@ -12,17 +14,28 @@ import { Question } from '../define/question';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private question: QuestionService
+    private questionService: QuestionService,
+    private router: Router
   ) { }
 
   questions: Question[];
+  title = 'ss'
 
-  ngOnInit() {
-    this.questions = [
-      { content: '台湾的生活和大陆有差异吗？特别需要注意什么？'},
-      { content: '如何变的更帅阿？'},
-      { content: '如何让人感觉你比较容易交往？'}
-    ]
+  ngOnInit(): void {
+    this.getQuestion();
+  }
+
+  getQuestion(): void {
+    this.questionService.getQuestions()
+    .then(questions => {
+      this.questions = questions;
+      this.title = 'hhhhh';
+      console.log('biana');
+    });
+  }
+
+  goDetail(): void {
+  
   }
 
 }

@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.userService.login(this.loginInfo)
     .then((loginedUser: any) => {
-      console.log(loginedUser);
-      this.userService.setUser(loginedUser.id, loginedUser.attributes.username);
       this.router.navigateByUrl('/me');
     }, (error) => {
       console.error(error);

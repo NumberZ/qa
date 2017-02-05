@@ -11,12 +11,32 @@ export class QuestionService {
   ) { }
   
   Question = AV.Object.extend('Question');
+  
+  private handleError(error: any): Promise<any> {
+    console.error('An error occured', error);
+    return Promise.reject(error.message || error);
+  }
 
+  //发布问题
   issueQuestion(questionContent: string) {
     const currentUser = AV.User.current();
     const question = new this.Question();
     question.set('content', questionContent);
     question.set('owner', currentUser);
     return question.save();
+  }
+
+  //获得问题
+  getQuestions() {
+    const query = new AV.Query('Question');
+    query.limit(10);
+    query.include('owner');
+    return query.find()
+      .then((response: any) => {
+          return response.map(ele => ele.attributes);
+        }
+      )
+      .catch(this.handleError);
+
   }
 }

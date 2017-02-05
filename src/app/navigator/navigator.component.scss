@@ -1,4 +1,4 @@
-$activeLinkColor: #FF5722;
+$activeLinkColor: #FFEB3B;
 
 .navigator {
   display: flex;
@@ -10,11 +10,11 @@ $activeLinkColor: #FF5722;
   width: 100%;
   font-size: 20px;
   border-top: 1px solid rgba(0,0,0,.03);
-  color: rgba(0,0,0,.54);
+  color: #fff;
   box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
-
+  background: #000;
   .link {
-    color: rgba(0,0,0,.54);
+    color: #fff;
     &.active {
       color: $activeLinkColor;
     }

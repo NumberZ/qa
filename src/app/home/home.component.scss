@@ -1,5 +1,19 @@
 .home-top-banner {
+  line-height: 0px;
   img {
     width: 100%;
+    min-height: 200px;
+  }
+}
+.q-container {
+  margin: 0px;
+  padding: 0px;
+  background: #fafafa;
+  .question-card {
+    display: block;
+    height: 120px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background: #fff;
   }
 }

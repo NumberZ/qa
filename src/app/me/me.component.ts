@@ -67,6 +67,7 @@ export class EditDialog {
   question: string = '';
 
   onSubmit() {
+    console.log(this.question);
     this.questionService.issueQuestion(this.question)
     .then((result) => {
       console.log(result);

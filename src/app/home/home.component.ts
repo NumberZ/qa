@@ -12,30 +12,27 @@ import { Question } from '../define/question';
   providers: [ QuestionService ]
 })
 export class HomeComponent implements OnInit {
-
   constructor(
     private questionService: QuestionService,
     private router: Router
   ) { }
 
-  questions: Question[];
-  title = 'ss'
+  questions = []
+  title = 'old'
 
   ngOnInit(): void {
-    this.getQuestion();
+    this.getQuestions();
   }
 
-  getQuestion(): void {
+  getQuestions(): void {
     this.questionService.getQuestions()
-    .then(questions => {
-      this.questions = questions;
-      this.title = 'hhhhh';
-      console.log('biana');
-    });
-  }
+      .then(questions => this.questions = questions)
+      .catch((error) => {
+        console.error(error);
+      });
 
-  goDetail(): void {
-  
+    setTimeout(() => {
+      this.title = 'new';
+    }, 1000)
   }
-
 }

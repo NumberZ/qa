@@ -1,12 +1,30 @@
 <div class="home-top-banner">
-  <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ9U90ww94S-c1W-lJrU3McPqMUsVI4SFrDTvXsnRP0hZIgkeFZRA" />
+  <img src="./assets/banner.jpeg" />
 </div>
-<ul class="q-container">
-  <li *ngFor="let question of questions"
-      class="question-card">
-      <div class="question-content">
-        {{ question.content }}
-      </div>
-  </li>
-</ul>
-{{title}}
+  <ul class="q-container">
+    <a *ngFor="let question of questions" [routerLink]="['/question', question.id]"
+        class="question-card">
+        <div class="question-content">
+          {{ question.content }}
+        </div>
+        <div class="owner-job">
+          {{ question.owner.username}}｜{{ question.owner.introduction }}
+        </div>
+        <div class="answer-container">
+          <div class="answer-owner">
+            <img class="avatar" src="./assets/avatar.jpg" />
+            <div class="comment">
+  
+            </div>
+          </div>
+          <div class="likes">
+            <md-icon>whatshot</md-icon>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <span class="time">9天前</span>
+          <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>2</span>
+        </div>
+    </a>
+  </ul>
+

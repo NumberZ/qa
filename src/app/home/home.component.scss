@@ -1,19 +1,75 @@
 .home-top-banner {
   line-height: 0px;
+  width: 100%;
   img {
     width: 100%;
     min-height: 200px;
   }
 }
 .q-container {
-  margin: 0px;
+  margin: 0px 0px 50px 0px;
   padding: 0px;
   background: #fafafa;
   .question-card {
     display: block;
-    height: 120px;
-    padding: 10px 15px;
+    padding: 15px 15px;
     margin-bottom: 10px;
     background: #fff;
+    .question-content {
+      font-size: 16px;
+    }
+    .owner-job {
+      font-size: 12px;
+      color: #bdbdbd;
+      margin-top: 5px;
+    }
+    .answer-container {
+      display: flex;
+      height: 60px;
+      justify-content: space-between;
+      align-items: center;
+      .answer-owner {
+        line-height: 0;
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+        }
+      }
+      .likes {
+        color: #F44336;
+      }
+      .comment {
+        display: inline-block;
+        width: 150px;
+        height: 35px;
+        position: relative;
+        margin: 0px 0px 0px 10px;
+        background: #009688;
+        border-radius: 7px;
+        &:after {
+          content: '';
+          width: 0;
+          height: 0;
+          position: absolute;
+          top: 5px;
+          left: -16px;
+          border: solid 8px;
+          border-color: transparent #009688 transparent transparent;
+          font-size: 0;
+        }
+      }
+    }
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #bdbdbd;
+      .material-icons{
+        height: 12px;
+        font-size: 12px;
+      }
+    }
   }
 }

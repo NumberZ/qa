@@ -28,6 +28,7 @@ export class SignComponent implements OnInit {
   onSubmit(): void {
     this.userService.sign(this.signInfo)
       .then((loginedUser: LoginedUser) => {
+        this.router.navigateByUrl('/login');
       }, (error) => {
         console.error(error);
       })

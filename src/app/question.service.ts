@@ -28,12 +28,15 @@ export class QuestionService {
 
   //获得问题
   getQuestions() {
+    console.log(new Date().getTime());
     const query = new AV.Query('Question');
-    query.limit(10);
     query.include('owner');
     return query.find()
       .then((response: any) => {
-          return response.map(ele => ele.attributes);
+          return response.map(ele => {
+            console.log(ele);
+            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes})
+          });
         }
       )
       .catch(this.handleError);

@@ -33,6 +33,6 @@ export class HomeComponent implements OnInit {
 
     setTimeout(() => {
       this.title = 'new';
-    }, 1000)
+    }, 2000)
   }
 }

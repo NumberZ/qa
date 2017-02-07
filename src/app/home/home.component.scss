@@ -19,7 +19,7 @@
       font-size: 16px;
     }
     .owner-job {
-      font-size: 12px;
+      font-size: 14px;
       color: #bdbdbd;
       margin-top: 5px;
     }
@@ -41,31 +41,33 @@
       }
       .comment {
         display: inline-block;
-        width: 150px;
-        height: 35px;
+        width: 200px;
+        height: 40px;
         position: relative;
         margin: 0px 0px 0px 10px;
-        background: #009688;
-        border-radius: 7px;
+        background: #de6a6a;
+        border-radius: 20px;
         &:after {
           content: '';
           width: 0;
           height: 0;
           position: absolute;
-          top: 5px;
-          left: -16px;
-          border: solid 8px;
-          border-color: transparent #009688 transparent transparent;
+          bottom: 0px;
+          left: 0;
+          border: solid 14px;
+          border-color: transparent  transparent #de6a6a transparent;
           font-size: 0;
         }
       }
     }
     .card-bottom {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 14px;
       color: #bdbdbd;
+      .time {
+        flex: 1
+      }
       .material-icons{
         height: 12px;
         font-size: 12px;

@@ -1,3 +1,19 @@
-<p>
-  question-detail works!
-</p>
+<div class="question">
+  <div class="question-author">
+    <img class="avatar" src="../assets/avatar.jpg" /> <span class="name">{{ question.username }}问到</span>
+  </div>
+  <div class="question-title">
+    <h3>{{ question.content }}</h3>
+  </div>
+  <div class="question-meta">
+    {{ question.time }}
+  </div>
+</div>
+
+<div class="answer">
+  <ul>
+    <li class="answer-content">
+
+    </li>
+  </ul>
+</div>

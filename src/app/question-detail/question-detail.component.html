@@ -9,11 +9,21 @@
     {{ question.time }}
   </div>
 </div>
+<div class="answer-title">回答</div>
+<ul class="answer-list">
+  <li class="answer-card">
+    <div class="name">亚索｜前端工程师</div>
+    <div class="answer-content">
+      <img  class="avatar" src="./assets/avatar.jpg" />
+      <div class="comment">
 
-<div class="answer">
-  <ul>
-    <li class="answer-content">
-
-    </li>
-  </ul>
-</div>
+      </div>
+      <div class="card-bottom">
+        <span class="time">9天前</span>
+      </div>
+    </div>
+  </li>
+</ul>
+<button class="voice-btn" md-fab (touchstart)="beginTranscribe()" (touchend)="endTranscribe()"><md-icon>keyboard_voice</md-icon></button>
+<!--<button md-raised-button (click)="getAccessToken()">getAccessToken</button>
+<button md-raised-button (click)="getJsApiTicket()">getJsApiTicket</button>-->

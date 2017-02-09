@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   getQuestions(): void {
+    console.time('getQuestions');
     this.questionService.getQuestions()
       .then(questions => this.questions = questions)
       .catch((error) => {
@@ -34,5 +35,6 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       this.title = 'new';
     }, 2000)
+    console.timeEnd('getQuestions');
   }
 }

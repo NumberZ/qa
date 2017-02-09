@@ -16,4 +16,70 @@
       margin-left: 10px;
     }
   }
+  .question-title {
+    margin: 10px 0px;
+  }
+}
+.answer-title {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 20px;
+  color: #999;
+}
+.answer-list {
+  margin: 0;
+  padding: 0;
+  .name {
+    color: #bdbdbd;
+    margin-bottom: 5px;
+  }
+  .answer-card {
+    display: block;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background: #fff;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+  .comment {
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    position: relative;
+    margin: 0px 0px 0px 10px;
+    background: #de6a6a;
+    border-radius: 20px;
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      border: solid 14px;
+      border-color: transparent  transparent #de6a6a transparent;
+      font-size: 0;
+    }
+  }
+  .card-bottom {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #bdbdbd;
+    .time {
+      flex: 1
+    }
+    .material-icons{
+      height: 12px;
+      font-size: 12px;
+    }
+  }
+}
+.voice-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
 }

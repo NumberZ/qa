@@ -24,18 +24,24 @@ export class MeComponent implements OnInit {
 
   name: string
   id: string
-  
+  avatarFile: any;
+  avatarUrl: string;
+
+  hiddenAvatarBtn = true;
+
   ngOnInit() {
     const currentUse = AV.User.current();
     if (currentUse) {
       console.log(currentUse);
       this.name = currentUse.attributes.username;
       this.id = currentUse.id;
+      this.avatarUrl = currentUse.attributes.avatar.attributes.url
     } else {
       this.router.navigateByUrl('/login');
     }
   }
 
+  //登出
   logOut() {
     console.log('logout');
     this.userService.logOut();
@@ -51,8 +57,32 @@ export class MeComponent implements OnInit {
       });
     })
   }
+
+  fileChangeEvent(fileInput: any) {
+    if(!fileInput) return;
+    const file = fileInput.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.avatarUrl = reader.result; 
+      this.hiddenAvatarBtn = false;
+    }
+    this.avatarFile = file;
+  }
+
+  uploadAvatar() {
+    this.userService.uploadAvatar(this.avatarFile)
+    .then((res) => {
+      console.log(res);
+      this.hiddenAvatarBtn = true;
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }
 }
 
+  
 
 @Component({
  templateUrl: './edit-dialog.component.html',

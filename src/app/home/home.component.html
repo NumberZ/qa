@@ -12,7 +12,7 @@
         </div>
         <div class="answer-container">
           <div class="answer-owner">
-            <img class="avatar" src="./assets/avatar.jpg" />
+            <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" />
             <div class="comment">
   
             </div>
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="card-bottom">
-          <span class="time">9天前</span>
+          <span class="time">{{ question.dateFromNow }}</span>
           <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>2</span>
         </div>
     </a>

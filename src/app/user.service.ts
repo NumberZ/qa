@@ -6,11 +6,15 @@ import { LoginInfo } from './define/loginInfo';
 
 @Injectable()
 export class UserService {
-  
+
   constructor() {
     
   }
-  
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occured', error);
+    return Promise.reject(error.message || error);
+  }
   user = {
     userId: '',
     username: ''
@@ -36,6 +40,17 @@ export class UserService {
     return AV.User.logIn(username, password)
   }
 
+  //上传头像
+  uploadAvatar(file) {
+    const currentUser = AV.User.current();
+    const avFile = new AV.File(file.name, file);
+    currentUser.set('avatar', avFile);
+    return currentUser.save()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(this.handleError)
+  }
   //登出
   logOut() {
     AV.User.logOut();

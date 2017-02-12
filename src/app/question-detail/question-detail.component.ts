@@ -24,21 +24,31 @@ export class QuestionDetailComponent implements OnInit {
     // .catch((error) => {
     //   console.error(error);
     // });
+    const jsApiTicket = 'kgt8ON7yVITDhtdwci0qeW9vcC1vl2nxOOI235ZFl1W-A8WnM11R31kLFJ40qbjkU3Cx1HAbixxpTiYFnFs3Gg';
+    const localUrl = encodeURIComponent(location.href.split('#')[0]);
 
-    wx.config({
-      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-      appId: 'wxaf744a29c3c7fb40', // 必填，公众号的唯一标识
-      timestamp: 1486564127647, // 必填，生成签名的时间戳
-      nonceStr: 'tree', // 必填，生成签名的随机串
-      signature: '0e59955f07ccc5f8fc52d1225e5690c25b2d35cb',// 必填，签名，见附录1
-      jsApiList: ['startRecord', 'stopRecord', 'pauseVoice', 'pauseVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    this.wxService.getSign(jsApiTicket, localUrl)
+    .then((res) => {
+      console.log(res);
+      wx.config({
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wxaf744a29c3c7fb40', // 必填，公众号的唯一标识
+        timestamp: res.timestamp, // 必填，生成签名的时间戳
+        nonceStr: res.nonceStr, // 必填，生成签名的随机串
+        signature: res.signature,// 必填，签名，见附录1
+        jsApiList: ['startRecord', 'stopRecord', 'pauseVoice', 'pauseVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+    })
+    .catch(error => {
+      
     });
 
     wx.ready(() => {
       console.log('wechat ready');
     });
 
-    wx.error(() => {
+    wx.error((error) => {
+      alert(JSON.stringify(error));
       console.log('wechat error');
     });
     
@@ -57,6 +67,7 @@ export class QuestionDetailComponent implements OnInit {
     this.recordTimer = setTimeout(() => {
       wx.startRecord({
         success: () => {
+          alert('开始录音');
           console.log("开始录音...");
         },
         cancle: () => {

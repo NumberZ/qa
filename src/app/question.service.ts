@@ -3,6 +3,8 @@ import { UserService } from './user.service';
 
 import * as AV from 'leancloud-storage';
 
+import Util from './util';
+
 @Injectable()
 export class QuestionService {
 
@@ -28,14 +30,13 @@ export class QuestionService {
 
   //获得问题
   getQuestions() {
-    console.log(new Date().getTime());
     const query = new AV.Query('Question');
     query.include('owner');
     return query.find()
       .then((response: any) => {
           return response.map(ele => {
-            console.log(ele);
-            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes})
+            const dateFromNow = Util.fromNow(ele.createdAt);
+            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
           });
         }
       )

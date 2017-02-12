@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit {
 
     setTimeout(() => {
       this.title = 'new';
-    }, 2000)
+      console.log(this.questions);
+    }, 1000)
     console.timeEnd('getQuestions');
   }
 }

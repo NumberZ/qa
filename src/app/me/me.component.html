@@ -1,8 +1,14 @@
 <div class="user-top-container">
-  {{name}}
+  <img class="blur" [src]="avatarUrl || './assets/avatar.jpg'" />
+  <img class="avatar" [src]="avatarUrl || './assets/avatar.jpg'" />
+  <input id="avatar" class="avatar-upload" type="file" (change)="fileChangeEvent($event)"/>
+  <div class="upload-controls">
+     <button md-mini-fab class="cancle-btn" [class.hidden]="hiddenAvatarBtn" (click)="cancleUpload()"><md-icon>clear</md-icon></button>
+     <button md-mini-fab class="upload-btn" [class.hidden]="hiddenAvatarBtn" (click)="uploadAvatar()"><md-icon>check</md-icon></button>
+  </div>
 </div>
 <div class="user-middle-container">
-  <button md-raised-button (click)="openDialog()">提问<md-icon>edit</md-icon></button>
+  <button class="edit-btn" md-raised-button (click)="openDialog()">提问<md-icon>edit</md-icon></button>
 </div>
 <ul class="user-setting">
   <li><a>我的提问<md-icon>chevron_right</md-icon></a></li>

@@ -30,6 +30,7 @@ export class UserService {
     const user = new AV.User();
     user.setUsername(signInfo.username);
     user.setPassword(signInfo.password);
+    user.set('introduction', signInfo.introduction);
     return user.signUp()
   }
 

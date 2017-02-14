@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 
 import { wxConfig } from './config';
 import 'rxjs/add/operator/toPromise';
-{"errcode":0,"errmsg":"ok","ticket":"","expires_in":7200}
+
 
 @Injectable()
 export class WxService {

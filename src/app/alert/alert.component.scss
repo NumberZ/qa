@@ -1,0 +1,25 @@
+.container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  left: 50%;
+  margin-left: -100px;
+  bottom: 100px;
+  color: #fff;
+  transition:  all 0.5s ease;
+  font-size: 16px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  &.success {
+    background: #4CAF50;
+  }
+  &.fail {
+    background: #F44336;
+  }
+  &.hidden {
+      bottom: 0px;
+  }
+}

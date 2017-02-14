@@ -21,6 +21,11 @@ export class HomeComponent implements OnInit {
   title = 'old'
 
   ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit(): void {
+    console.log('l,,');
     this.getQuestions();
   }
 
@@ -33,8 +38,8 @@ export class HomeComponent implements OnInit {
       });
 
     setTimeout(() => {
-      this.title = 'new';
-      console.log(this.questions);
+      // this.title = 'new';
+      // console.log(this.questions);
     }, 1000)
     console.timeEnd('getQuestions');
   }

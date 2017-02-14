@@ -7,13 +7,16 @@ import { HomeComponent } from './home/home.component';
 import { MeComponent } from './me/me.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
  
+import { MyQuestionsComponent } from './my-questions/my-questions.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'me', component: MeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign', component: SignComponent },
-  { path: 'question/:id', component: QuestionDetailComponent} 
+  { path: 'question/:id', component: QuestionDetailComponent },
+  { path: 'myQuestions', component: MyQuestionsComponent } 
 ];
 
 @NgModule({

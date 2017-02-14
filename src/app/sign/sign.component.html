@@ -8,6 +8,10 @@
     <input md-input type="text" placeholder="密码" required
     [(ngModel)]="signInfo.password" name="password">
   </md-input-container>
+  <md-input-container class="input-wrapper">
+    <input md-input type="text" placeholder="简介" required
+    [(ngModel)]="signInfo.introduction" name="introduction">
+  </md-input-container>
   <button type="submit" md-raised-button color="primary" class="sign-btn">确定</button>
 </form>
 {{diagnostic}}

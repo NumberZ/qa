@@ -17,7 +17,7 @@ export class SignComponent implements OnInit {
     private router: Router
   ) { }
 
-  signInfo = new SignInfo('', '');
+  signInfo = new SignInfo('', '', '');
 
   get diagnostic() { return JSON.stringify(this.signInfo); }
 
@@ -28,6 +28,7 @@ export class SignComponent implements OnInit {
   onSubmit(): void {
     this.userService.sign(this.signInfo)
       .then((loginedUser: LoginedUser) => {
+        console.log(loginedUser);
         this.router.navigateByUrl('/login');
       }, (error) => {
         console.error(error);

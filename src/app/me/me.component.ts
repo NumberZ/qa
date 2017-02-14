@@ -1,7 +1,8 @@
-import { Component, OnInit, Optional } from '@angular/core';
-import { MdDialog, MdDialogRef, MdSnackBar } from '@angular/material';
-
+import { Component, OnInit, Optional, ViewChild } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+
+import { AlertComponent } from '../alert/alert.component';
 
 import { UserService } from '../user.service';
 import { QuestionService } from '../question.service';
@@ -14,12 +15,13 @@ import * as AV from 'leancloud-storage';
   styleUrls: ['./me.component.scss']
 })
 export class MeComponent implements OnInit {
+  @ViewChild(AlertComponent) alert: AlertComponent;
+
   constructor(
     private userService: UserService,
 
     private router: Router,
-    private _dialog: MdDialog,
-    private _snackbar: MdSnackBar
+    private _dialog: MdDialog
   ) { }
 
   name: string
@@ -35,7 +37,7 @@ export class MeComponent implements OnInit {
       console.log(currentUse);
       this.name = currentUse.attributes.username;
       this.id = currentUse.id;
-      this.avatarUrl = currentUse.attributes.avatar.attributes.url
+      this.avatarUrl = currentUse.attributes.avatar ? currentUse.attributes.avatar .attributes.url : '';
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -50,11 +52,10 @@ export class MeComponent implements OnInit {
 
   openDialog() {
     let dialogRef = this._dialog.open(EditDialog);
-
+    
     dialogRef.afterClosed().subscribe(result => {
-      this._snackbar.open('发布成功', '', {
-        duration: 1000
-      });
+      if (!result) return;
+      this.alert.showSuccess('发布成功!');
     })
   }
 

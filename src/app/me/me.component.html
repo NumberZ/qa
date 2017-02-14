@@ -1,6 +1,6 @@
 <div class="user-top-container">
   <img class="blur" [src]="avatarUrl || './assets/avatar.jpg'" />
-  <img class="avatar" [src]="avatarUrl || './assets/avatar.jpg'" />
+  <label for="avatar"><img class="avatar" [src]="avatarUrl || './assets/avatar.jpg'" /></label>
   <input id="avatar" class="avatar-upload" type="file" (change)="fileChangeEvent($event)"/>
   <div class="upload-controls">
      <button md-mini-fab class="cancle-btn" [class.hidden]="hiddenAvatarBtn" (click)="cancleUpload()"><md-icon>clear</md-icon></button>
@@ -11,9 +11,10 @@
   <button class="edit-btn" md-raised-button (click)="openDialog()">提问<md-icon>edit</md-icon></button>
 </div>
 <ul class="user-setting">
-  <li><a>我的提问<md-icon>chevron_right</md-icon></a></li>
-  <li><a>我的回答<md-icon>chevron_right</md-icon></a></li>
+  <li><a routerLink="/myQuestions" class="link" >我的提问<md-icon>chevron_right</md-icon></a></li>
+  <li><a routerLink="/myAnswers">我的回答<md-icon>chevron_right</md-icon></a></li>
   <li><a>修改密码<md-icon>chevron_right</md-icon></a></li>
   <li (click)="logOut()"><a>退出登录<md-icon>chevron_right</md-icon></a></li>
   <li><a>关于<md-icon>chevron_right</md-icon></a></li>
 </ul>
+<app-alert></app-alert>

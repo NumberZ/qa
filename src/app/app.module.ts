@@ -19,6 +19,8 @@ import { HomeComponent } from './home/home.component';
 import { UserService } from './user.service';
 import { MeComponent, EditDialog } from './me/me.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
+import { MyQuestionsComponent } from './my-questions/my-questions.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
     HomeComponent,
     MeComponent,
     EditDialog,
-    QuestionDetailComponent
+    QuestionDetailComponent,
+    MyQuestionsComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

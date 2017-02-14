@@ -33,14 +33,44 @@ export class QuestionService {
     const query = new AV.Query('Question');
     query.include('owner');
     return query.find()
-      .then((response: any) => {
-          return response.map(ele => {
+      .then((res: any) => {
+          return res.map(ele => {
             const dateFromNow = Util.fromNow(ele.createdAt);
             return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
           });
         }
       )
       .catch(this.handleError);
+
+  }
+
+  getQuestion(id: string) {
+    const query = new AV.Query('Question');
+    query.include('owner');
+    return query.get(id)
+      .then((res: any) => {
+        const dateFromNow = Util.fromNow(res.createdAt);
+        return Object.assign({}, {id: res.id}, res.attributes, {owner: res.attributes.owner.attributes},  {dateFromNow})
+      })  
+      .catch(this.handleError);
+  }
+
+  getQuestionsByUser() {
+    const query = new AV.Query('Question');
+    const currentUser = AV.User.current();
+    query.equalTo('owner', currentUser);
+    query.include('owner');
+
+    return query.find()
+      .then((res: any) => {
+          return res.map(ele => {
+            const dateFromNow = Util.fromNow(ele.createdAt);
+            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
+          });
+      })
+      .catch((error) => {
+        this.handleError(error);
+      })
 
   }
 }

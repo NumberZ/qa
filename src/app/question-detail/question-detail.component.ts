@@ -1,22 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { WxService } from '../wx.service';
+import { QuestionService } from '../question.service';
+import { ActivatedRoute, Params }   from '@angular/router';
+
+import 'rxjs/add/operator/switchMap';
 
 @Component({
+  moduleId: module.id,
   selector: 'app-question-detail',
   templateUrl: './question-detail.component.html',
   styleUrls: ['./question-detail.component.scss'],
-  providers: [WxService]
+  providers: [WxService, QuestionService]
 })
 export class QuestionDetailComponent implements OnInit {
   start: number;
   end: number;
   recordTimer;
+  question = {
+    owner: {
+      username: ''
+    }
+  }
 
   constructor(
-    private wxService: WxService
+    private wxService: WxService,
+    private questionService: QuestionService,
+    private route: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.route.params
+      .switchMap((params: Params) => this.questionService.getQuestion(params['id']))
+      .subscribe(question => this.question = question);
+
+      setTimeout(() => {
+        // this.start = 1;
+      }, 500);
+    // this.questionService.getQuestion()
     // this.wxService.getConfig()
     // .then((config) => {
     //   wx.config(config);
@@ -29,9 +49,9 @@ export class QuestionDetailComponent implements OnInit {
 
     this.wxService.getSign(jsApiTicket, localUrl)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       wx.config({
-        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: 'wxaf744a29c3c7fb40', // 必填，公众号的唯一标识
         timestamp: res.timestamp, // 必填，生成签名的时间戳
         nonceStr: res.nonceStr, // 必填，生成签名的随机串
@@ -54,12 +74,7 @@ export class QuestionDetailComponent implements OnInit {
     
   }
 
-  question = {
-    username: '李林昊',
-    content: '台湾的生活跟大陆有什么大的差异吗？特别需要注意什么？',
-    time: '9天前',
 
-  }
 
   beginTranscribe(): void {
     console.log('kaishi');

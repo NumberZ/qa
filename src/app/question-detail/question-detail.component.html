@@ -1,12 +1,12 @@
 <div class="question">
   <div class="question-author">
-    <img class="avatar" src="../assets/avatar.jpg" /> <span class="name">{{ question.username }}问到</span>
+    <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" /> <span class="name">{{ question.owner?.username }}问到</span>
   </div>
   <div class="question-title">
     <h3>{{ question.content }}</h3>
   </div>
   <div class="question-meta">
-    {{ question.time }}
+   {{ question.dateFromNow }}
   </div>
 </div>
 <div class="answer-title">回答</div>

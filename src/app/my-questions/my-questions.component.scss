@@ -1,0 +1,23 @@
+.question {
+  display: block;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background: #fff;
+  .question-author {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #999;
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+    }
+    .name {
+      margin-left: 10px;
+    }
+  }
+  .question-title {
+    margin: 10px 0px;
+  }
+}

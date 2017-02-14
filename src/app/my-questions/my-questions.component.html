@@ -1,0 +1,13 @@
+<div>
+  <a *ngFor="let question of questions" class="question" [routerLink]="['/question', question.id]">
+    <div class="question-author">
+      <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" /> <span class="name">{{ question.owner?.username }}问到</span>
+    </div>
+    <div class="question-title">
+      <h3>{{ question.content }}</h3>
+    </div>
+    <div class="question-meta">
+    {{ question.dateFromNow }}
+    </div>
+  </a>
+</div>

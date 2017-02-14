@@ -23,6 +23,8 @@ const Util = {
       result = `${parseInt(weekC + '')}周前`
     } else if (dayC >= 1) {
       result = `${parseInt(dayC + '')}天前`
+    } else if (hourC >= 1) {
+      result = `${parseInt(hourC + '')}小时前`
     } else if (minC >= 1) {
       result = `${parseInt(minC + '')}分钟前`
     } else {

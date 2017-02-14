@@ -24,20 +24,22 @@ export class MeComponent implements OnInit {
     private _dialog: MdDialog
   ) { }
 
-  name: string
-  id: string
+  name: string;
+  id: string;
+  introduction: string;
   avatarFile: any;
   avatarUrl: string;
-
+  initAvatarUrl: string;
   hiddenAvatarBtn = true;
 
   ngOnInit() {
     const currentUse = AV.User.current();
     if (currentUse) {
-      console.log(currentUse);
-      this.name = currentUse.attributes.username;
       this.id = currentUse.id;
+      this.name = currentUse.attributes.username;
+      this.introduction = currentUse.attributes.introduction;
       this.avatarUrl = currentUse.attributes.avatar ? currentUse.attributes.avatar .attributes.url : '';
+      this.initAvatarUrl = this.avatarUrl;
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -80,6 +82,11 @@ export class MeComponent implements OnInit {
     .catch((error) => {
       console.error(error);
     })
+  }
+
+  cancleUpload() {
+    this.avatarUrl = this.initAvatarUrl;
+    this.hiddenAvatarBtn = true;
   }
 }
 

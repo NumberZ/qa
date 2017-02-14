@@ -8,7 +8,8 @@
   </div>
 </div>
 <div class="user-middle-container">
-  <button class="edit-btn" md-raised-button (click)="openDialog()">提问<md-icon>edit</md-icon></button>
+  <button class="edit-btn" md-raised-button (click)="openDialog()"><span>提问</span><md-icon>edit</md-icon></button>
+  <div class="name">{{ name }} | {{ introduction }}</div>
 </div>
 <ul class="user-setting">
   <li><a routerLink="/myQuestions" class="link" >我的提问<md-icon>chevron_right</md-icon></a></li>

@@ -32,7 +32,8 @@ export class QuestionService {
   getQuestions() {
     const query = new AV.Query('Question');
     query.include('owner');
-    return query.find()
+    console.log(typeof query.find().then)
+    return Promise.resolve(query.find())
       .then((res: any) => {
           return res.map(ele => {
             const dateFromNow = Util.fromNow(ele.createdAt);
@@ -47,7 +48,7 @@ export class QuestionService {
   getQuestion(id: string) {
     const query = new AV.Query('Question');
     query.include('owner');
-    return query.get(id)
+    return Promise.resolve(query.get(id))
       .then((res: any) => {
         const dateFromNow = Util.fromNow(res.createdAt);
         return Object.assign({}, {id: res.id}, res.attributes, {owner: res.attributes.owner.attributes},  {dateFromNow})
@@ -61,7 +62,7 @@ export class QuestionService {
     query.equalTo('owner', currentUser);
     query.include('owner');
 
-    return query.find()
+    return Promise.resolve(query.find())
       .then((res: any) => {
           return res.map(ele => {
             const dateFromNow = Util.fromNow(ele.createdAt);

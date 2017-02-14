@@ -17,30 +17,30 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) { }
 
-  questions = []
-  title = 'old'
+  questions = [];
+  loading: boolean = true;
 
   ngOnInit(): void {
-    
-  }
-
-  ngAfterViewInit(): void {
-    console.log('l,,');
     this.getQuestions();
   }
 
   getQuestions(): void {
     console.time('getQuestions');
     this.questionService.getQuestions()
-      .then(questions => this.questions = questions)
+      .then((questions: any) => {
+        this.questions = questions;
+        this.loading = false;
+        console.log(this.questions);
+            // }, 1000)
+    console.timeEnd('getQuestions');
+      })
       .catch((error) => {
         console.error(error);
       });
 
-    setTimeout(() => {
-      // this.title = 'new';
-      // console.log(this.questions);
-    }, 1000)
-    console.timeEnd('getQuestions');
+    // setTimeout(() => {
+    //   // this.title = 'new';
+    //   // console.log(this.questions);
+
   }
 }

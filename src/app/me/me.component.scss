@@ -5,7 +5,7 @@ $themeColor: #000;
   height: 180px;
   background: $themeColor;
   color: #fff;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   position: relative;
 
   #avatar {
@@ -71,9 +71,13 @@ $themeColor: #000;
   width: 100%;
   height: 100px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-
+  flex-direction: column-reverse;
+  font-size: 16px;
+  .name {
+    text-shadow: 2px 0px 11px rgba(150, 150, 150, 1);
+  }
   .edit-btn {
     background: #000;
     color: #FFEB3B

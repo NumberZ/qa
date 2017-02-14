@@ -1,30 +1,31 @@
 <div class="home-top-banner">
   <img src="./assets/banner.jpeg" />
 </div>
-  <ul class="q-container">
-    <a *ngFor="let question of questions" [routerLink]="['/question', question.id]"
-        class="question-card">
-        <div class="question-content">
-          {{ question.content }}
-        </div>
-        <div class="owner-job">
-          {{ question.owner.username}}｜{{ question.owner.introduction }}
-        </div>
-        <div class="answer-container">
-          <div class="answer-owner">
-            <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" />
-            <div class="comment">
-  
-            </div>
-          </div>
-          <div class="likes">
-            <md-icon>whatshot</md-icon>
+<app-loading *ngIf="loading"></app-loading>
+<ul *ngIf="!loading" class="q-container">
+  <a *ngFor="let question of questions" [routerLink]="['/question', question.id]"
+      class="question-card">
+      <div class="question-content">
+        {{ question.content }}
+      </div>
+      <div class="owner-job">
+        {{ question.owner.username}}｜{{ question.owner.introduction }}
+      </div>
+      <div class="answer-container">
+        <div class="answer-owner">
+          <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" />
+          <div class="comment">
+
           </div>
         </div>
-        <div class="card-bottom">
-          <span class="time">{{ question.dateFromNow }}</span>
-          <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>2</span>
+        <div class="likes">
+          <md-icon>whatshot</md-icon>
         </div>
-    </a>
-  </ul>
+      </div>
+      <div class="card-bottom">
+        <span class="time">{{ question.dateFromNow }}</span>
+        <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>2</span>
+      </div>
+  </a>
+</ul>
 

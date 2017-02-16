@@ -38,6 +38,9 @@
     padding: 10px 20px;
     margin-bottom: 10px;
     background: #fff;
+    .answer-content {
+      display: flex;
+    }
   }
   .avatar {
     width: 40px;
@@ -45,13 +48,28 @@
     border-radius: 100%;
   }
   .comment {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    color: #fff;
     width: 200px;
     height: 40px;
     position: relative;
     margin: 0px 0px 0px 10px;
     background: #de6a6a;
     border-radius: 20px;
+    flex: 1;
+    margin-right: 50px;
+    .voice {
+      font-size: 30px;
+      color: #fff;
+      margin-left: 15px;
+    }
+    .duration {
+      flex: 1;
+      text-align: right;
+      margin-right: 15px;
+      color: #fcc;
+    }
     &:after {
       content: '';
       width: 0;
@@ -82,4 +100,15 @@
   position: fixed;
   bottom: 80px;
   right: 30px;
+  width: 60px;
+  height: 60px;
+  background: #ffd740;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  transform: translate3d(0, 0, 0);
+  &.active {
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 12px 17px 2px rgba(0, 0, 0, .14), 0 5px 22px 4px rgba(0,0,0,.12);
+  }
 }

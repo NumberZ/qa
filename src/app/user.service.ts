@@ -46,7 +46,7 @@ export class UserService {
     const currentUser = AV.User.current();
     const avFile = new AV.File(file.name, file);
     currentUser.set('avatar', avFile);
-    return currentUser.save()
+    return Promise.resolve(currentUser.save())
       .then((res) => {
         console.log(res);
       })

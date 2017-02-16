@@ -76,10 +76,10 @@ export class MeComponent implements OnInit {
   uploadAvatar() {
     this.userService.uploadAvatar(this.avatarFile)
     .then((res) => {
-      console.log(res);
       this.hiddenAvatarBtn = true;
     })
     .catch((error) => {
+      this.hiddenAvatarBtn = true;
       console.error(error);
     })
   }

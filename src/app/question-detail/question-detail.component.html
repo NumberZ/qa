@@ -15,15 +15,29 @@
     <div class="name">亚索｜前端工程师</div>
     <div class="answer-content">
       <img  class="avatar" src="./assets/avatar.jpg" />
-      <div class="comment">
-
+      <div class="comment" (click)="playVoice(1)">
+        <i class="material-icons voice">volume_up</i>  
+        <span class="duration">00:46</span>
       </div>
-      <div class="card-bottom">
-        <span class="time">9天前</span>
+      <audio id="1" src="http://7xo69p.com1.z0.glb.clouddn.com/f0ZhdfBuStBT1zwU3OUQUMDT9tQ=/FpBnq1IjDY8Y6f2_BcJ9WD-qEe_h" preload="metadata"></audio>
+    </div>
+    <div class="card-bottom">
+      <span class="time">9天前</span>
+    </div>
+  </li>
+  <li class="answer-card">
+    <div class="name">亚索｜前端工程师</div>
+    <div class="answer-content">
+      <img  class="avatar" src="./assets/avatar.jpg" />
+      <div class="comment" (click)="playVoice(1)">
+        <i class="material-icons voice">volume_up</i>  
+        <span class="duration">00:46</span>
       </div>
+      <audio id="1" src="http://7xo69p.com1.z0.glb.clouddn.com/f0ZhdfBuStBT1zwU3OUQUMDT9tQ=/FpBnq1IjDY8Y6f2_BcJ9WD-qEe_h" preload="metadata"></audio>
+    </div>
+    <div class="card-bottom">
+      <span class="time">9天前</span>
     </div>
   </li>
 </ul>
-<button class="voice-btn" md-fab (touchstart)="beginTranscribe()" (touchend)="endTranscribe()"><md-icon>keyboard_voice</md-icon></button>
-<button md-raised-button (click)="getAccessToken()">getAccessToken</button>
-<button md-raised-button (click)="getJsApiTicket()">getJsApiTicket</button>
+<button class="voice-btn"  [class.active]="btnActive" (touchstart)="beginTranscribe($event)" (touchend)="endTranscribe($event)"><md-icon>keyboard_voice</md-icon></button>

@@ -17,20 +17,42 @@ export class AnswerService {
   uploadAnswer(serverId) {
     return this.http.get(`api/uploadVoice?serverId=${serverId}`)
     .toPromise()
-    .then((res) => res.text())
+    .then((res) => res.json())
     .catch((error) => {
       console.error(error);
     })
   }
 
-  issueAnswer(questionId, url) {
+  issueAnswer(questionId, url, duration) {
     const currentUser = AV.User.current();
     const answer = new this.Answer();
     answer.set('owner', currentUser);
     const question = AV.Object.createWithoutData('Question', questionId);
     answer.set('question', question);
     answer.set('url', url);
-    return Promise.resolve(answer.save());
+    answer.set('duration', duration);
+    return Promise.resolve(answer.save())
+      .then(res => res.json())
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+  getAnswers(questionId) {
+    const query = new AV.Query('Answer');
+    const question = AV.Object.createWithoutData('Question', questionId);
+    query.equalTo('question', question);
+    query.include('owner');
+    return Promise.resolve(query.find())
+      .then((res: any) => {
+          return res.map(ele => {
+            const dateFromNow = Util.fromNow(ele.createdAt);
+            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
+          });
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 }
 

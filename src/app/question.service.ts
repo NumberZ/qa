@@ -25,6 +25,7 @@ export class QuestionService {
     const question = new this.Question();
     question.set('content', questionContent);
     question.set('owner', currentUser);
+
     return question.save();
   }
 
@@ -32,7 +33,6 @@ export class QuestionService {
   getQuestions() {
     const query = new AV.Query('Question');
     query.include('owner');
-    console.log(typeof query.find().then)
     return Promise.resolve(query.find())
       .then((res: any) => {
           return res.map(ele => {

@@ -20,12 +20,14 @@ export class QuestionDetailComponent implements OnInit {
   recordTimer;
   btnActive: boolean = false;
   voice: any = {};
+  answerLoading: boolean = true;
   question = {
     owner: {
       username: ''
     },
     id: ''
   }
+  answers = [];
   constructor(
     private wxService: WxService,
     private questionService: QuestionService,
@@ -37,6 +39,8 @@ export class QuestionDetailComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.questionService.getQuestion(params['id']))
       .subscribe(question => this.question = question);
+    this.getAnswers();
+
     const localUrl = encodeURIComponent(location.href.split('#')[0]);
     this.wxService.getSign(localUrl)
     .then((res) => {
@@ -64,9 +68,22 @@ export class QuestionDetailComponent implements OnInit {
     
   }
 
+  getAnswers() {
+    this.answerLoading = true;
+    this.route.params
+    .switchMap((params: Params) => this.answerService.getAnswers(params['id']))
+    .subscribe(answers => {
+      this.answers = answers;
+      this.answerLoading = false;
+    });
+    setTimeout(() => {
+      
+    }, 1000)
+
+  }
+
   beginTranscribe($event): void {
     $event.preventDefault();
-    console.log('触摸开始');
     this.btnActive = true;
     this.start = new Date().getTime();
     this.recordTimer = setTimeout(() => {
@@ -104,21 +121,17 @@ export class QuestionDetailComponent implements OnInit {
   }
 
   uploadVoice() {
-    alert('shangchuan');
     wx.uploadVoice({
       localId: this.voice.localId,
       isShowProgressTips: 1,
       success: (res) => {
         this.answerService.uploadAnswer(res.serverId)
           .then((res) => {
-            this.answerService.issueAnswer(this.question.id, res)
-              .then(res => {
-                alert(JSON.stringify(res));
-              })
-              .catch(error => {
-                alert(JSON.stringify(error));
-              })
-          });
+            return this.answerService.issueAnswer(this.question.id, res.url, res.duration)
+          })
+          .then((res) => {
+            this.getAnswers();
+          })
       },
       fail: (res) => {
         alert(JSON.stringify(res));

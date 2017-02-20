@@ -12,5 +12,10 @@
     <input md-input type="text" placeholder="简介" required
     [(ngModel)]="signInfo.introduction" name="introduction">
   </md-input-container>
+  <md-input-container class="input-wrapper">
+    <input md-input type="text" placeholder="邮箱" required
+    [(ngModel)]="signInfo.email" name="email">
+  </md-input-container>
   <button type="submit" md-raised-button color="primary" class="sign-btn">确定</button>
 </form>
+<app-alert></app-alert>

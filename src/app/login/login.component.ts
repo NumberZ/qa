@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
 import { LoginInfo } from '../define/loginInfo';
 import { LoginedUser } from '../define/loginedUser';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { LoginedUser } from '../define/loginedUser';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild(AlertComponent) alert: AlertComponent;
 
   constructor(
     private userService: UserService,
@@ -26,8 +28,9 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginInfo)
     .then((loginedUser: any) => {
       this.router.navigateByUrl('/me');
-    }, (error) => {
-      console.error(error);
+    })
+    .catch(error => {
+      this.alert.showFail(error.message);
     })
   }
 }

@@ -14,7 +14,7 @@
 <ul class="user-setting">
   <li><a routerLink="/myQuestions" class="link" >我的提问<md-icon>chevron_right</md-icon></a></li>
   <li><a routerLink="/myAnswers">我的回答<md-icon>chevron_right</md-icon></a></li>
-  <li><a>修改密码<md-icon>chevron_right</md-icon></a></li>
+  <li (click)="resetPassword()"><a>重置密码<md-icon>chevron_right</md-icon></a></li>
   <li (click)="logOut()"><a>退出登录<md-icon>chevron_right</md-icon></a></li>
   <li><a>关于<md-icon>chevron_right</md-icon></a></li>
 </ul>

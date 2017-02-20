@@ -19,7 +19,6 @@ export class MeComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-
     private router: Router,
     private _dialog: MdDialog
   ) { }
@@ -30,6 +29,7 @@ export class MeComponent implements OnInit {
   avatarFile: any;
   avatarUrl: string;
   initAvatarUrl: string;
+  email: string;
   hiddenAvatarBtn = true;
 
   ngOnInit() {
@@ -38,6 +38,7 @@ export class MeComponent implements OnInit {
       this.id = currentUse.id;
       this.name = currentUse.attributes.username;
       this.introduction = currentUse.attributes.introduction;
+      this.email = currentUse.attributes.email;
       this.avatarUrl = currentUse.attributes.avatar ? currentUse.attributes.avatar .attributes.url : '';
       this.initAvatarUrl = this.avatarUrl;
     } else {
@@ -50,6 +51,16 @@ export class MeComponent implements OnInit {
     console.log('logout');
     this.userService.logOut();
     this.router.navigateByUrl('/login');
+  }
+
+  resetPassword() {
+    Promise.resolve(AV.User.requestPasswordReset(this.email))
+      .then((success) => {
+        console.log(1);
+         this.alert.showSuccess('重置邮件已发送至您邮箱!');
+      },(error) => {
+        this.alert.showFail(error.message);
+    })
   }
 
   openDialog() {
@@ -105,7 +116,6 @@ export class EditDialog {
   question: string = '';
 
   onSubmit() {
-    console.log(this.question);
     this.questionService.issueQuestion(this.question)
     .then((result) => {
       console.log(result);

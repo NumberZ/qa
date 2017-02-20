@@ -1,0 +1,18 @@
+<app-loading *ngIf="answerLoading"></app-loading>
+<ul *ngIf="!answerLoading" class="answer-list">
+  <li *ngFor="let answer of answers" class="answer-card">
+    <div class="name">{{ answer.owner.username }}｜{{ answer.owner.introduction }}</div>
+    <div class="answer-content">
+      <img  class="avatar" [src]="answer.owner.avatar?.attributes.url || './assets/avatar.jpg'" />
+      <audio [id]="answer.id" [src]="answer.url"></audio>
+      <div class="comment" (click)="playVoice(answer.id)">
+        <i class="material-icons voice">volume_up</i>  
+        <span class="duration">{{answer.duration}}s</span>
+      </div>
+
+    </div>
+    <div class="card-bottom">
+      <span class="time">{{answer.dateFromNow}}</span>
+    </div>
+  </li>
+</ul>

@@ -15,15 +15,17 @@ export class MyQuestionsComponent implements OnInit {
   ) { }
   questions = [];
   loading: boolean = true;
-
+  empty: boolean = false;
   ngOnInit() {
-    console.log('ngOnInit');
     this.getQuestions();
   }
 
   getQuestions() {
     this.questionService.getQuestionsByUser()
       .then((questions) => {
+        if (questions.length === 0) {
+          this.empty = true;
+        }
         this.questions = questions;
         this.loading = false;
       })

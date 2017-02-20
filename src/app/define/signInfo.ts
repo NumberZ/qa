@@ -3,5 +3,6 @@ export class SignInfo {
     public username: string,
     public password: string,
     public introduction: string,
+    public email: string
   ){}
 }

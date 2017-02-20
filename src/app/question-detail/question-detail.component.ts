@@ -36,10 +36,13 @@ export class QuestionDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params
-      .switchMap((params: Params) => this.questionService.getQuestion(params['id']))
-      .subscribe(question => this.question = question);
-    this.getAnswers();
+
+    // this.route.params
+    //   .switchMap((params: Params) => this.questionService.getQuestion(params['id']))
+    //   .subscribe(question => this.question = question);
+    // this.getAnswers();
+
+
 
     const localUrl = encodeURIComponent(location.href.split('#')[0]);
     this.wxService.getSign(localUrl)
@@ -52,9 +55,12 @@ export class QuestionDetailComponent implements OnInit {
         signature: res.signature,// 必填，签名，见附录1
         jsApiList: ['startRecord', 'stopRecord', 'pauseVoice', 'pauseVoice', 'uploadVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
+      this.getQuestion();
+      this.getAnswers();
     })
     .catch(error => {
-      alert(JSON.stringify(error));
+      const errStr = JSON.stringify(error) + '出错了';
+      alert(errStr);
     });
 
     wx.ready(() => {
@@ -62,23 +68,35 @@ export class QuestionDetailComponent implements OnInit {
     });
 
     wx.error((error) => {
-      alert(JSON.stringify(error));
-      console.log('wechat error');
+      location.reload();
     });
     
   }
 
+  getQuestion() {
+    const qId = location.pathname.split('/').pop();
+    this.questionService.getQuestion(qId)
+      .then(question => {
+        this.question = question;
+      });
+  }
+
   getAnswers() {
+    const qId = location.pathname.split('/').pop();
     this.answerLoading = true;
-    this.route.params
-    .switchMap((params: Params) => this.answerService.getAnswers(params['id']))
-    .subscribe(answers => {
-      this.answers = answers;
-      this.answerLoading = false;
-    });
-    setTimeout(() => {
-      
-    }, 1000)
+    this.answerService.getAnswers(qId)
+      .then(answers => {
+        console.log(answers);
+        this.answers = answers;
+        this.answerLoading = false;
+      });
+    // this.answerLoading = true;
+    // this.route.params
+    // .switchMap((params: Params) => this.answerService.getAnswers(params['id']))
+    // .subscribe(answers => {
+    //   this.answers = answers;
+    //   this.answerLoading = false;
+    // });
 
   }
 
@@ -130,7 +148,7 @@ export class QuestionDetailComponent implements OnInit {
             return this.answerService.issueAnswer(this.question.id, res.url, res.duration)
           })
           .then((res) => {
-            this.getAnswers();
+            location.reload();
           })
       },
       fail: (res) => {

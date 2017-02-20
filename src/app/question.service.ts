@@ -25,7 +25,7 @@ export class QuestionService {
     const question = new this.Question();
     question.set('content', questionContent);
     question.set('owner', currentUser);
-
+    question.set('lastAnswer', '');
     return question.save();
   }
 
@@ -37,7 +37,13 @@ export class QuestionService {
       .then((res: any) => {
           return res.map(ele => {
             const dateFromNow = Util.fromNow(ele.createdAt);
-            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
+            let lastAnswer = ele.attributes.lastAnswer;
+            if (!lastAnswer) {
+              lastAnswer = ''
+            } else {
+              lastAnswer = JSON.parse(lastAnswer);
+            }
+            return Object.assign({}, {id: ele.id} , ele.attributes, {lastAnswer}, {owner: ele.attributes.owner.attributes}, {dateFromNow})
           });
         }
       )

@@ -22,10 +22,12 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
 import { MyQuestionsComponent } from './my-questions/my-questions.component';
 import { AlertComponent } from './alert/alert.component';
 import { LoadingComponent } from './loading/loading.component';
+import { MyAnswersComponent } from './my-answers/my-answers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlertComponent,
     NavigatorComponent,
     LoginComponent,
     SignComponent,
@@ -34,8 +36,8 @@ import { LoadingComponent } from './loading/loading.component';
     EditDialog,
     QuestionDetailComponent,
     MyQuestionsComponent,
-    AlertComponent,
-    LoadingComponent
+    LoadingComponent,
+    MyAnswersComponent
   ],
   imports: [
     BrowserModule,

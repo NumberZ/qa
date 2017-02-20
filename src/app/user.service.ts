@@ -26,19 +26,20 @@ export class UserService {
   }
 
   //注册
-  sign(signInfo: SignInfo): Promise<Object> {
+  sign(signInfo: SignInfo){
     const user = new AV.User();
     user.setUsername(signInfo.username);
     user.setPassword(signInfo.password);
+    user.setEmail(signInfo.email);
     user.set('introduction', signInfo.introduction);
-    return user.signUp()
+    return Promise.resolve(user.signUp())
   }
 
   //登录
   login(loginInfo: LoginInfo): Promise<Object> {
     const username = loginInfo.username;
     const password = loginInfo.password;
-    return AV.User.logIn(username, password)
+    return Promise.resolve(AV.User.logIn(username, password))
   }
 
   //上传头像

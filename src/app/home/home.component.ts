@@ -31,8 +31,7 @@ export class HomeComponent implements OnInit {
         this.questions = questions;
         this.loading = false;
         console.log(this.questions);
-            // }, 1000)
-    console.timeEnd('getQuestions');
+        console.timeEnd('getQuestions');
       })
       .catch((error) => {
         console.error(error);
@@ -42,5 +41,15 @@ export class HomeComponent implements OnInit {
     //   // this.title = 'new';
     //   // console.log(this.questions);
 
+  }
+
+  playVoice($event, id) {
+    // $event.stopPropagation();
+    const audioEle : any = document.getElementById(id);
+    if (audioEle.paused) {
+      audioEle.play();
+      return ;
+    }
+    audioEle.pause();
   }
 }

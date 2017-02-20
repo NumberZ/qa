@@ -17,7 +17,7 @@ export class WxService {
     return Promise.reject(error.message || error);
   }
 
-  getSign(localUrl) {
+  getSign(localUrl: string) {
     return this.http.get(`api/sign?&localUrl=${localUrl}`)
       .toPromise()
       .then((res) => res.json())

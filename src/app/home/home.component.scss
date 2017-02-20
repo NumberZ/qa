@@ -32,6 +32,7 @@
       justify-content: space-between;
       align-items: center;
       .answer-owner {
+        display: flex;
         line-height: 0;
         .avatar {
           width: 40px;
@@ -43,7 +44,10 @@
         color: #F44336;
       }
       .comment {
-        display: inline-block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
         width: 200px;
         height: 40px;
         position: relative;
@@ -61,7 +65,24 @@
           border-color: transparent  transparent #de6a6a transparent;
           font-size: 0;
         }
+        .duration {
+          margin-right: 10px;
+        }
+        .voice {
+          font-size: 30px;
+          margin-left: 15px;
+        }
       }
+    }
+    .noAnswer {
+      
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+      color: #000;
+      border-radius: 20px;
     }
     .card-bottom {
       display: flex;

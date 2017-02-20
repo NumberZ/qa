@@ -3,7 +3,7 @@
 </div>
 <app-loading *ngIf="loading"></app-loading>
 <ul *ngIf="!loading" class="q-container">
-  <a *ngFor="let question of questions" [routerLink]="['/question', question.id]"
+  <a *ngFor="let question of questions; let i = index" [routerLink]="['/question', question.id]"
       class="question-card">
       <div class="question-content">
         {{ question.content }}
@@ -11,16 +11,22 @@
       <div class="owner-job">
         {{ question.owner.username}}｜{{ question.owner.introduction }}
       </div>
-      <div class="answer-container">
+      <div *ngIf="question.lastAnswer" class="answer-container">
         <div class="answer-owner">
-          <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" />
-          <div class="comment">
-
+          <audio [id]="i" [src]="question.lastAnswer.url"></audio>
+          <img class="avatar" [src]="question.lastAnswer.currentUser.avatar.url"/>
+          <div class="comment" (click)="playVoice($event, i)">
+            <i class="material-icons voice">volume_up</i>  
+            <span class="duration">{{question.lastAnswer.duration}}s</span>
           </div>
         </div>
+
         <div class="likes">
           <md-icon>whatshot</md-icon>
         </div>
+      </div>
+      <div *ngIf="!question.lastAnswer" class="noAnswer">
+        <h4>暂时无人回答！</h4>
       </div>
       <div class="card-bottom">
         <span class="time">{{ question.dateFromNow }}</span>

@@ -31,7 +31,12 @@ export class AnswerService {
     answer.set('question', question);
     answer.set('url', url);
     answer.set('duration', duration);
-    return Promise.resolve(answer.save())
+    question.set('lastAnswer', JSON.stringify({
+      url,
+      duration,
+      currentUser
+    }))
+    return Promise.resolve(answer.save().then(question.save()))
       .then(res => res.json())
       .catch(error => {
         console.error(error);
@@ -45,6 +50,7 @@ export class AnswerService {
     query.include('owner');
     return Promise.resolve(query.find())
       .then((res: any) => {
+          console.log(res);
           return res.map(ele => {
             const dateFromNow = Util.fromNow(ele.createdAt);
             return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
@@ -52,6 +58,23 @@ export class AnswerService {
       })
       .catch(error => {
         console.error(error);
+      })
+  }
+
+  getMyAnswers() {
+    const query = new AV.Query('Answer');
+    const currentUser = AV.User.current();
+    query.equalTo('owner', currentUser);
+    query.include('owner');
+    return Promise.resolve(query.find())
+      .then((res: any) => {
+        return res.map(ele => {
+          const dateFromNow = Util.fromNow(ele.createdAt);
+          return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})
+        });
+      })
+      .catch(error => {
+      console.error(error);
       })
   }
 }

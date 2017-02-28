@@ -21,6 +21,7 @@ export class QuestionDetailComponent implements OnInit {
   btnActive: boolean = false;
   voice: any = {};
   answerLoading: boolean = true;
+  qId = location.pathname.split('/').pop();
   question = {
     owner: {
       username: ''
@@ -36,15 +37,9 @@ export class QuestionDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    // this.route.params
-    //   .switchMap((params: Params) => this.questionService.getQuestion(params['id']))
-    //   .subscribe(question => this.question = question);
-    // this.getAnswers();
-
-
-
     const localUrl = encodeURIComponent(location.href.split('#')[0]);
+    this.getQuestion();
+    this.getAnswers();
     this.wxService.getSign(localUrl)
     .then((res) => {
       wx.config({
@@ -55,8 +50,6 @@ export class QuestionDetailComponent implements OnInit {
         signature: res.signature,// 必填，签名，见附录1
         jsApiList: ['startRecord', 'stopRecord', 'pauseVoice', 'pauseVoice', 'uploadVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
-      this.getQuestion();
-      this.getAnswers();
     })
     .catch(error => {
       const errStr = JSON.stringify(error) + '出错了';
@@ -74,30 +67,31 @@ export class QuestionDetailComponent implements OnInit {
   }
 
   getQuestion() {
-    const qId = location.pathname.split('/').pop();
-    this.questionService.getQuestion(qId)
+    
+    console.time('getQuestion');
+    this.questionService.getQuestion(this.qId)
       .then(question => {
+        console.timeEnd('getQuestion');
+        console.log(question);
         this.question = question;
+        this.increaseViews();
       });
   }
 
   getAnswers() {
-    const qId = location.pathname.split('/').pop();
     this.answerLoading = true;
-    this.answerService.getAnswers(qId)
+    this.answerService.getAnswers(this.qId)
       .then(answers => {
-        console.log(answers);
         this.answers = answers;
         this.answerLoading = false;
       });
-    // this.answerLoading = true;
-    // this.route.params
-    // .switchMap((params: Params) => this.answerService.getAnswers(params['id']))
-    // .subscribe(answers => {
-    //   this.answers = answers;
-    //   this.answerLoading = false;
-    // });
+  }
 
+  increaseViews() {
+    this.questionService.increaseView(this.qId)
+      .then((res) => {console.log(res)})
+      .catch((error) => console.error(error)
+      );
   }
 
   beginTranscribe($event): void {

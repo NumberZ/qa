@@ -6,7 +6,8 @@
   <a *ngFor="let question of questions; let i = index" [routerLink]="['/question', question.id]"
       class="question-card">
       <div class="question-content">
-        {{ question.content }}
+        <span>{{ question.content }} </span>
+        <i *ngIf="question.to" class="material-icons">account_circle</i>
       </div>
       <div class="owner-job">
         {{ question.owner.username}}｜{{ question.owner.introduction }}
@@ -26,7 +27,7 @@
         </div>
       </div>
       <div *ngIf="!question.lastAnswer" class="noAnswer">
-        <h4>暂时无人回答！</h4>
+        <h4>暂无回答！</h4>
       </div>
       <div class="card-bottom">
         <span class="time">{{ question.dateFromNow }}</span>

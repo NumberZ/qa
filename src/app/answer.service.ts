@@ -50,7 +50,6 @@ export class AnswerService {
     query.include('owner');
     return Promise.resolve(query.find())
       .then((res: any) => {
-          console.log(res);
           return res.map(ele => {
             const dateFromNow = Util.fromNow(ele.createdAt);
             return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {dateFromNow})

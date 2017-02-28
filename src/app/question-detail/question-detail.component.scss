@@ -19,6 +19,12 @@
   .question-title {
     margin: 10px 0px;
   }
+  .question-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #999;
+  }
 }
 .answer-title {
   font-size: 14px;

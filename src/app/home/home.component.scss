@@ -19,6 +19,8 @@
       color: #bdbdbd;
     }
     .question-content {
+      display: flex;
+      justify-content: space-between;
       font-size: 16px;
     }
     .owner-job {
@@ -75,7 +77,6 @@
       }
     }
     .noAnswer {
-      
       height: 40px;
       display: flex;
       justify-content: center;

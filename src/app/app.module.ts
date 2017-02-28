@@ -17,12 +17,14 @@ import { SignComponent } from './sign/sign.component';
 import { HomeComponent } from './home/home.component';
 
 import { UserService } from './user.service';
-import { MeComponent, EditDialog } from './me/me.component';
+import { MeComponent } from './me/me.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { MyQuestionsComponent } from './my-questions/my-questions.component';
 import { AlertComponent } from './alert/alert.component';
+import { EditDialog } from './edit-dialog/edit-dialog.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MyAnswersComponent } from './my-answers/my-answers.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { MyAnswersComponent } from './my-answers/my-answers.component';
     QuestionDetailComponent,
     MyQuestionsComponent,
     LoadingComponent,
-    MyAnswersComponent
+    MyAnswersComponent,
+    SearchComponent,
+    
   ],
   imports: [
     BrowserModule,

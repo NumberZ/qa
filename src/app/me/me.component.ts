@@ -3,6 +3,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { AlertComponent } from '../alert/alert.component';
+import { EditDialog } from '../edit-dialog/edit-dialog.component';
 
 import { UserService } from '../user.service';
 import { QuestionService } from '../question.service';
@@ -12,13 +13,15 @@ import * as AV from 'leancloud-storage';
 @Component({
   selector: 'app-me',
   templateUrl: './me.component.html',
-  styleUrls: ['./me.component.scss']
+  styleUrls: ['./me.component.scss'],
+  providers: [QuestionService]
 })
 export class MeComponent implements OnInit {
   @ViewChild(AlertComponent) alert: AlertComponent;
 
   constructor(
     private userService: UserService,
+    private questionService: QuestionService,
     private router: Router,
     private _dialog: MdDialog
   ) { }
@@ -68,8 +71,14 @@ export class MeComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
-      this.alert.showSuccess('发布成功!');
-    })
+      this.questionService.issueQuestion(result)
+        .then((result) => {
+          console.log(result);
+          this.alert.showSuccess('发布成功!');
+        }, (error) => {
+          alert(JSON.stringify(error));
+        });
+      })
   }
 
   fileChangeEvent(fileInput: any) {
@@ -98,30 +107,5 @@ export class MeComponent implements OnInit {
   cancleUpload() {
     this.avatarUrl = this.initAvatarUrl;
     this.hiddenAvatarBtn = true;
-  }
-}
-
-  
-
-@Component({
- templateUrl: './edit-dialog.component.html',
- styleUrls: ['./edit-dialog.component.scss'],
- providers: [QuestionService]
-})
-export class EditDialog {
-  constructor(
-    @Optional() public dialogRef: MdDialogRef<EditDialog>,
-    private questionService: QuestionService
-    ) { }
-  question: string = '';
-
-  onSubmit() {
-    this.questionService.issueQuestion(this.question)
-    .then((result) => {
-      console.log(result);
-    }, (error) => {
-      alert(JSON.stringify(error));
-    });
-    this.dialogRef.close(this.question);
   }
 }

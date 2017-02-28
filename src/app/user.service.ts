@@ -57,5 +57,20 @@ export class UserService {
   logOut() {
     AV.User.logOut();
   }
+
+  //搜索用户
+  searchUser(searchKey) {
+    const query = new AV.Query('_User');
+    query.equalTo('username', searchKey);
+    return Promise.resolve(query.find())
+      .then((res: any) => {
+        return res.map((ele) => {
+          const id = ele.id;
+          const avatar = ele.attributes.avatar ? ele.attributes.avatar.attributes.url : '';
+          return Object.assign({}, {id}, ele.attributes, {avatar})
+        });
+      })
+      .catch(this.handleError)
+  }
 }
 

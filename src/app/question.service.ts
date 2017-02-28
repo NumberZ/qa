@@ -20,13 +20,23 @@ export class QuestionService {
   }
 
   //发布问题
-  issueQuestion(questionContent: string) {
+  issueQuestion(questionContent: string, toId?: string) {
     const currentUser = AV.User.current();
     const question = new this.Question();
     question.set('content', questionContent);
     question.set('owner', currentUser);
     question.set('lastAnswer', '');
-    return question.save();
+    question.set('views', 0);
+    if (toId) {
+      const query = new AV.Query('_User');
+      return Promise.resolve(query.get(toId))
+        .then((res) => {
+          question.set('to', res);
+          return question.save();
+        })
+    } else {
+      return question.save();
+    }
   }
 
   //获得问题
@@ -54,8 +64,10 @@ export class QuestionService {
   getQuestion(id: string) {
     const query = new AV.Query('Question');
     query.include('owner');
+    query.include('to');
     return Promise.resolve(query.get(id))
       .then((res: any) => {
+        console.log(res);
         const dateFromNow = Util.fromNow(res.createdAt);
         return Object.assign({}, {id: res.id}, res.attributes, {owner: res.attributes.owner.attributes},  {dateFromNow})
       })  
@@ -79,5 +91,17 @@ export class QuestionService {
         this.handleError(error);
       })
 
+  }
+
+  increaseView(id) {
+    const query = new AV.Query('Question');
+    return Promise.resolve(query.get(id))
+      .then((res: any) => {
+        res.increment('views', 1);
+        return res.save();
+      })
+      .catch((error) => {
+        this.handleError(error);
+      })
   }
 }

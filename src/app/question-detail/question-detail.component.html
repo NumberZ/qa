@@ -2,7 +2,7 @@
   <div class="question-author">
     <img class="avatar" [src]="question.owner.avatar?.attributes.url || './assets/avatar.jpg'" /> 
     <span *ngIf="!question.to" class="name">{{ question.owner?.username }}问到</span>
-    <span *ngIf="question.to" class="name">{{ question.owner?.username }}向 {{ question.to.attributes.username}} 问到</span>
+    <span *ngIf="question.to" class="name">{{ question.owner?.username }}向<span class="to-name"> {{ question.to.attributes.username }} </span>问到</span>
   </div>
   <div class="question-title">
     <h3>{{ question.content }}</h3>
@@ -33,3 +33,4 @@
   </li>
 </ul>
 <button class="voice-btn"  [class.active]="btnActive" (touchstart)="beginTranscribe($event)" (touchend)="endTranscribe($event)"><md-icon>keyboard_voice</md-icon></button>
+<app-alert></app-alert>

@@ -6,16 +6,42 @@
      <button md-mini-fab class="cancle-btn" [class.hidden]="hiddenAvatarBtn" (click)="cancleUpload()"><md-icon>clear</md-icon></button>
      <button md-mini-fab class="upload-btn" [class.hidden]="hiddenAvatarBtn" (click)="uploadAvatar()"><md-icon>check</md-icon></button>
   </div>
+  <button class="edit-btn" md-fab (click)="openDialog()"><md-icon>edit</md-icon></button>
 </div>
 <div class="user-middle-container">
-  <button class="edit-btn" md-raised-button (click)="openDialog()"><span>提问</span><md-icon>edit</md-icon></button>
   <div class="name">{{ name }} | {{ introduction }}</div>
+  <div class="email">邮箱：{{ email }}</div>
 </div>
 <ul class="user-setting">
-  <li><a routerLink="/myQuestions" class="link" >我的提问<md-icon>chevron_right</md-icon></a></li>
-  <li><a routerLink="/myAnswers">我的回答<md-icon>chevron_right</md-icon></a></li>
-  <li (click)="resetPassword()"><a>重置密码<md-icon>chevron_right</md-icon></a></li>
-  <li (click)="logOut()"><a>退出登录<md-icon>chevron_right</md-icon></a></li>
-  <li><a>关于<md-icon>chevron_right</md-icon></a></li>
+  <li>
+    <a routerLink="/myQuestions" class="link" >
+      <span class="icon-container"><i class="material-icons">help_outline</i>我问</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li>
+    <a routerLink="/myAnswers" class="link">
+    <span class="icon-container"><i class="material-icons">mic</i>我答</span>
+    <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="[ '/myQuestions' ]" [queryParams]="{ private: true }" class="link">
+    <span class="icon-container"><i class="material-icons">record_voice_over</i>受邀回答</span>
+    <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li (click)="resetPassword()">
+    <a class="link">
+      <span class="icon-container"><i class="material-icons">https</i>重置密码</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li (click)="logOut()">
+    <a class="link">
+     <span class="icon-container"><i class="material-icons">directions_run</i>退出</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
 </ul>
 <app-alert></app-alert>

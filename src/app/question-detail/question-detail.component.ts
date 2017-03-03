@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WxService } from '../wx.service';
 import { QuestionService } from '../question.service';
 import { AnswerService } from '../answer.service';
 
+import { AlertComponent } from '../alert/alert.component';
 import { ActivatedRoute, Params }   from '@angular/router';
 
+import * as AV from 'leancloud-storage';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -15,6 +17,8 @@ import 'rxjs/add/operator/switchMap';
   providers: [WxService, QuestionService, AnswerService]
 })
 export class QuestionDetailComponent implements OnInit {
+  @ViewChild(AlertComponent) alert: AlertComponent;
+
   start: number;
   end: number;
   recordTimer;
@@ -26,7 +30,8 @@ export class QuestionDetailComponent implements OnInit {
     owner: {
       username: ''
     },
-    id: ''
+    id: '',
+    to: null
   }
   answers = [];
   constructor(
@@ -78,6 +83,11 @@ export class QuestionDetailComponent implements OnInit {
       });
   }
 
+  getCurrentUserId() {
+    const currentUser = AV.User.current();
+    return currentUser ? currentUser.id : undefined;
+  }
+
   getAnswers() {
     this.answerLoading = true;
     this.answerService.getAnswers(this.qId)
@@ -96,6 +106,14 @@ export class QuestionDetailComponent implements OnInit {
 
   beginTranscribe($event): void {
     $event.preventDefault();
+    if (!this.getCurrentUserId()) {
+      this.alert.showFail('请先登录！');
+      return ;      
+    }    
+    if (this.question.to && this.getCurrentUserId() !== this.question.to.id) {
+      this.alert.showFail('您无权回答该问题！');
+      return ;
+    }
     this.btnActive = true;
     this.start = new Date().getTime();
     this.recordTimer = setTimeout(() => {

@@ -31,6 +31,22 @@ const Util = {
       result = '刚刚';
     }
     return result;
+  },
+
+  getQueryObject(url): Object {
+    url = url ==  null  ? window.location.href : url;
+    if (url.lastIndexOf('?') === -1) return null;
+    var  search = url.substring(url.lastIndexOf( "?" ) + 1);
+    var  obj = {};
+    var  reg = /([^?&=]+)=([^?&=]*)/g;
+    search.replace(reg,  function  (rs, $1, $2) {
+      var  name = decodeURIComponent($1);
+      var  val = decodeURIComponent($2);
+      val = String(val);
+      obj[name] = val;
+      return  rs;
+    });
+    return  obj;
   }
 };
 

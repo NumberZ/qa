@@ -9,6 +9,7 @@
     <div class="result-name">{{ result.username }} | {{ result.introduction }}</div>
     <div class="result-email"><i class="material-icons">mail</i>: {{ result.email }}</div>
     <button md-raised-button class="result-btn" (click)="openDialog()">向他提问</button>
+    <button class="follow-btn" (click)="follow()"><i class="material-icons">add</i>关注</button>
   </div>
 </div>
 <app-loading *ngIf="loading"></app-loading>

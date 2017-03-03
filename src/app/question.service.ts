@@ -93,6 +93,26 @@ export class QuestionService {
 
   }
 
+  getQuestionsByPrivate() {
+    const query = new AV.Query('Question');
+    const currentUser = AV.User.current();
+    query.equalTo('to', currentUser);
+    query.include('owner');
+
+    return Promise.resolve(query.find())
+      .then((res: any) => {
+        console.log(res);
+          return res.map(ele => {
+            const dateFromNow = Util.fromNow(ele.createdAt);
+            return Object.assign({}, {id: ele.id} , ele.attributes, {owner: ele.attributes.owner.attributes}, {to: ele.attributes.to.attributes}, {dateFromNow})
+          });
+      })
+      .catch((error) => {
+        this.handleError(error);
+      })
+      
+  }
+ 
   increaseView(id) {
     const query = new AV.Query('Question');
     return Promise.resolve(query.get(id))

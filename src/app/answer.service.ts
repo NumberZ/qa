@@ -31,6 +31,7 @@ export class AnswerService {
     answer.set('question', question);
     answer.set('url', url);
     answer.set('duration', duration);
+    answer.set('isAnswered', true);
     question.set('lastAnswer', JSON.stringify({
       url,
       duration,

@@ -47,9 +47,9 @@ export class MeComponent implements OnInit {
     } else {
       this.router.navigateByUrl('/login');
     }
+    console.log('refresh');
   }
-
-  //登出
+  // 退出登录
   logOut() {
     console.log('logout');
     this.userService.logOut();
@@ -59,8 +59,7 @@ export class MeComponent implements OnInit {
   resetPassword() {
     Promise.resolve(AV.User.requestPasswordReset(this.email))
       .then((success) => {
-        console.log(1);
-         this.alert.showSuccess('重置邮件已发送至您邮箱!');
+        this.alert.showSuccess('重置邮件已发送至您邮箱!');
       },(error) => {
         this.alert.showFail(error.message);
     })
@@ -73,7 +72,6 @@ export class MeComponent implements OnInit {
       if (!result) return;
       this.questionService.issueQuestion(result)
         .then((result) => {
-          console.log(result);
           this.alert.showSuccess('发布成功!');
         }, (error) => {
           alert(JSON.stringify(error));

@@ -34,6 +34,7 @@ export class MeComponent implements OnInit {
   initAvatarUrl: string;
   email: string;
   hiddenAvatarBtn = true;
+  numberOfPri: number;
 
   ngOnInit() {
     const currentUse = AV.User.current();
@@ -47,6 +48,7 @@ export class MeComponent implements OnInit {
     } else {
       this.router.navigateByUrl('/login');
     }
+    this.getNumberOfPrivate();
     console.log('refresh');
   }
   // 退出登录
@@ -105,5 +107,15 @@ export class MeComponent implements OnInit {
   cancleUpload() {
     this.avatarUrl = this.initAvatarUrl;
     this.hiddenAvatarBtn = true;
+  }
+
+  getNumberOfPrivate() {
+    this.questionService.getNumberOfPri() 
+      .then((res: number) => {
+        this.numberOfPri = res;
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 }

@@ -26,6 +26,7 @@ export class QuestionService {
     question.set('content', questionContent);
     question.set('owner', currentUser);
     question.set('lastAnswer', '');
+    question.set('isAnswered', 0);
     question.set('views', 0);
     if (toId) {
       const query = new AV.Query('_User');
@@ -43,6 +44,7 @@ export class QuestionService {
   getQuestions() {
     const query = new AV.Query('Question');
     query.include('owner');
+    query.descending('createdAt');
     return Promise.resolve(query.find())
       .then((res: any) => {
           return res.map(ele => {
@@ -92,11 +94,12 @@ export class QuestionService {
       })
 
   }
-
+  // 获得受邀问答的问题列表
   getQuestionsByPrivate() {
     const query = new AV.Query('Question');
     const currentUser = AV.User.current();
     query.equalTo('to', currentUser);
+    query.equalTo('isAnswered', 0);
     query.include('owner');
 
     return Promise.resolve(query.find())
@@ -112,7 +115,19 @@ export class QuestionService {
       })
       
   }
- 
+  // 返回受邀问答的数量
+  getNumberOfPri() {
+    const query = new AV.Query('Question');
+    const currentUser = AV.User.current();
+    query.equalTo('to', currentUser);
+    query.equalTo('isAnswered', 0);
+    return Promise.resolve(query.count())
+      .then(res => res)
+      .catch((error) => {
+        this.handleError(error);
+      })
+  }
+  // 增加浏览次数
   increaseView(id) {
     const query = new AV.Query('Question');
     return Promise.resolve(query.get(id))

@@ -37,6 +37,7 @@ export class AnswerService {
       duration,
       currentUser
     }))
+    question.set('isAnswered', 1);
     return Promise.resolve(answer.save().then(question.save()))
       .then(res => res.json())
       .catch(error => {

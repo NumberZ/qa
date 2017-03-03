@@ -35,6 +35,7 @@ export class SearchComponent implements OnInit {
   }
 
   search($event) {
+    this.result = null;
     if ($event.keyCode === 13) {
       this.loading = true;
       this.userService.searchUser(this.searchKey)

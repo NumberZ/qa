@@ -28,6 +28,7 @@
   <li>
     <a [routerLink]="[ '/myQuestions' ]" [queryParams]="{ private: true }" class="link">
     <span class="icon-container"><i class="material-icons">record_voice_over</i>受邀回答</span>
+    <span *ngIf="numberOfPri !== 0" class="number-pri">{{ numberOfPri }}</span>
     <md-icon>chevron_right</md-icon>
     </a>
   </li>

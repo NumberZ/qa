@@ -110,9 +110,20 @@ $themeColor: #000;
       padding: 10px 15px;
       .icon-container {
         display: flex;
+        flex: 1;
         .material-icons {
           margin-right: 5px;
         }
+      }
+      .number-pri {
+        width: 20px;
+        height: 20px;
+        background: #D50000;
+        text-align: center;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 14px;
+        line-height: 20px;
       }
     }
   }

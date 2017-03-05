@@ -72,5 +72,43 @@ export class UserService {
       })
       .catch(this.handleError)
   }
+
+  //关注用户
+  followUser(id) {
+    const currentUser: any = AV.User.current();
+    return Promise.resolve(currentUser.follow(id))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(this.handleError)
+  }
+  
+  //取关用户
+  unfollowUser(id) {
+    const currentUser: any = AV.User.current();
+    return Promise.resolve(currentUser.unfollow(id))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(this.handleError)
+  }
+
+  //获取用户的关注状态
+  getFollowState(id) {
+    const currentUser: any = AV.User.current();
+    const query = currentUser.followeeQuery();
+    return Promise.resolve(query.find())
+      .then((res) => {
+        const ids = res.map((ele) => ele.id);
+        if (ids.indexOf(id) != -1) {
+          return true; 
+        } else {
+          return false;
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
 }
 

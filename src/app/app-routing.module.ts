@@ -11,6 +11,8 @@ import { SearchComponent } from './search/search.component';
 import { MyQuestionsComponent } from './my-questions/my-questions.component';
 import { MyAnswersComponent } from './my-answers/my-answers.component';
 
+import { UserListComponent } from './user-list/user-list.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
@@ -20,7 +22,8 @@ const routes: Routes = [
   { path: 'question/:id', component: QuestionDetailComponent },
   { path: 'myQuestions', component: MyQuestionsComponent },
   { path: 'myAnswers', component: MyAnswersComponent },
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  { path: 'userlist', component: UserListComponent }
 ];
 
 @NgModule({

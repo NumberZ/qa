@@ -14,6 +14,27 @@
 </div>
 <ul class="user-setting">
   <li>
+    <a [routerLink]="[ '/userlist' ]" [queryParams]="{ for: 'followee' }" class="link" >
+      <span class="icon-container"><i class="material-icons">favorite</i>我的关注</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li>
+    <a [routerLink]="[ '/userlist' ]" [queryParams]="{ for: 'follower' }"  class="link" >
+      <span class="icon-container"><i class="material-icons">face</i>我的粉丝</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li>
+    <a routerLink="/news" class="link" >
+      <span class="icon-container"><i class="material-icons">poll</i>最新动态</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>  
+</ul>
+
+<ul class="user-setting" style="margin-bottom: 50px">
+  <li>
     <a routerLink="/myQuestions" class="link" >
       <span class="icon-container"><i class="material-icons">help_outline</i>我问</span>
       <md-icon>chevron_right</md-icon>

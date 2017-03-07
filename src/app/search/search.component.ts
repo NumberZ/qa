@@ -82,10 +82,10 @@ export class SearchComponent implements OnInit {
   unfollow() {
     this.userService.unfollowUser(this.result.id)
       .then(res => {
-
+        this.isFollowing = false;
       })
       .catch(error => {
-
+        console.error(error);
       });
   }
 

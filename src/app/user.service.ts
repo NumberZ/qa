@@ -108,7 +108,32 @@ export class UserService {
       })
       .catch(error => {
         console.error(error);
+      });
+  }
+
+  //获取关注用户
+  getFollowee() {
+    const currentUser: any = AV.User.current();
+    const query = currentUser.followeeQuery();
+    query.include('followee');
+    return Promise.resolve(query.find())
+      .then((res) => {
+        console.log(res);
       })
+      .catch(this.handleError);
+  }
+
+
+  //获取粉丝
+  getFollower() {
+    const currentUser: any = AV.User.current();
+    const query = currentUser.followerQuery();
+    query.include('follower');
+    return Promise.resolve(query.find())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(this.handleError);
   }
 }
 

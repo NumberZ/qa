@@ -25,6 +25,7 @@ import { EditDialog } from './edit-dialog/edit-dialog.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MyAnswersComponent } from './my-answers/my-answers.component';
 import { SearchComponent } from './search/search.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SearchComponent } from './search/search.component';
     LoadingComponent,
     MyAnswersComponent,
     SearchComponent,
+    UserListComponent,
     
   ],
   imports: [

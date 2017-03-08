@@ -14,26 +14,30 @@ export class UserListComponent implements OnInit {
     private userService: UserService
   ) { }
   
+  loading: boolean = true;
   followees = [];
   followers = [];
+  query = '';
 
   ngOnInit() {
+    const queryObject : any = Util.getQueryObject(location.href);
+    this.query = queryObject.for;
     this.getUserList();
   }
 
   getUserList() {
-    const queryObject : any = Util.getQueryObject(location.href);
-    if (queryObject.for == 'followee') {
+    if (this.query == 'followee') {
       this.getFolloweeList();
-    } else if (queryObject.for === 'follower') {
+    } else if (this.query === 'follower') {
       this.getFollowerList();
     }
   }
 
-  //
+  //获取关注列表
   getFolloweeList() {
     this.userService.getFollowee()
       .then((res) => {
+        this.loading = false;
         this.followees = res;
       })
       .catch(error => {
@@ -41,13 +45,25 @@ export class UserListComponent implements OnInit {
       });
   }
 
+  //获取粉丝列表
   getFollowerList() {
     this.userService.getFollower()
       .then((res) => {
+        this.loading = false;
         this.followers = res;
       })
       .catch(error => {
         console.error(error);
       });
+  }
+
+  unfollow(id) {
+    this.userService.unfollowUser(id)
+      .then((res) => {
+        this.getFolloweeList();
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 }

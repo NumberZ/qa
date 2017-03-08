@@ -118,7 +118,11 @@ export class UserService {
     query.include('followee');
     return Promise.resolve(query.find())
       .then((res) => {
-        console.log(res);
+        return res.map((ele: any) => {
+          console.log(ele);
+          const id = ele.id;
+          return Object.assign({}, {id}, ele.attributes)
+        })
       })
       .catch(this.handleError);
   }
@@ -131,7 +135,11 @@ export class UserService {
     query.include('follower');
     return Promise.resolve(query.find())
       .then((res) => {
-        console.log(res);
+        return res.map((ele: any) => {
+          console.log(ele);
+          const id = ele.id;
+          return Object.assign({}, {id}, ele.attributes)
+        })
       })
       .catch(this.handleError);
   }

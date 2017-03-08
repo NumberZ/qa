@@ -1,3 +1,24 @@
-<ul>
-  
+<app-loading *ngIf="loading"></app-loading>
+<ul *ngIf="!loading && query === 'followee'" class="user-list">
+  <li *ngFor="let followee of followees"class="user-card">
+    <div class="user-container">
+      <img class="avatar" [src]="followee.avatar?.attributes.url || './assets/avatar.jpg'" >
+      <div class="user-content">
+        <span>{{followee.username}}</span>
+        <span>{{followee.introduction}}</span>
+      </div>
+    </div>
+    <button class="unfollow-btn" (click)="unfollow(followee.id)"><i class="material-icons">close</i>取消关注</button>
+  </li>
+</ul>
+<ul *ngIf="!loading && query === 'follower'" class="user-list">
+  <li *ngFor="let follower of followers"class="user-card">
+    <div class="user-container">
+      <img class="avatar" [src]="follower.avatar?.attributes.url || './assets/avatar.jpg'" >
+      <div class="user-content">
+        <span>{{follower.username}}</span>
+        <span>{{follower.introduction}}</span>
+      </div>
+    </div>
+  </li>
 </ul>

@@ -26,6 +26,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { MyAnswersComponent } from './my-answers/my-answers.component';
 import { SearchComponent } from './search/search.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { NewsComponent } from './news/news.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UserListComponent } from './user-list/user-list.component';
     MyAnswersComponent,
     SearchComponent,
     UserListComponent,
+    NewsComponent,
     
   ],
   imports: [

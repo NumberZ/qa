@@ -12,6 +12,7 @@ import { MyQuestionsComponent } from './my-questions/my-questions.component';
 import { MyAnswersComponent } from './my-answers/my-answers.component';
 
 import { UserListComponent } from './user-list/user-list.component';
+import { NewsComponent } from './news/news.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'myQuestions', component: MyQuestionsComponent },
   { path: 'myAnswers', component: MyAnswersComponent },
   { path: 'search', component: SearchComponent },
-  { path: 'userlist', component: UserListComponent }
+  { path: 'userlist', component: UserListComponent },
+  { path: 'news', component: NewsComponent }
 ];
 
 @NgModule({

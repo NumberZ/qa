@@ -7,6 +7,7 @@ import { EditDialog } from '../edit-dialog/edit-dialog.component';
 
 import { UserService } from '../user.service';
 import { QuestionService } from '../question.service';
+import { StatusService } from '../status.service';
 
 import * as AV from 'leancloud-storage';
 
@@ -14,7 +15,7 @@ import * as AV from 'leancloud-storage';
   selector: 'app-me',
   templateUrl: './me.component.html',
   styleUrls: ['./me.component.scss'],
-  providers: [QuestionService]
+  providers: [QuestionService, StatusService]
 })
 export class MeComponent implements OnInit {
   @ViewChild(AlertComponent) alert: AlertComponent;
@@ -22,6 +23,7 @@ export class MeComponent implements OnInit {
   constructor(
     private userService: UserService,
     private questionService: QuestionService,
+    private statusService: StatusService,
     private router: Router,
     private _dialog: MdDialog
   ) { }
@@ -73,7 +75,9 @@ export class MeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
       this.questionService.issueQuestion(result)
-        .then((result) => {
+        .then((res) => {
+          console.log(res);
+          this.statusService.issueQuestionStatus(res);
           this.alert.showSuccess('发布成功!');
         }, (error) => {
           alert(JSON.stringify(error));

@@ -57,6 +57,7 @@ export class UserListComponent implements OnInit {
       });
   }
 
+  //取消关注
   unfollow(id) {
     this.userService.unfollowUser(id)
       .then((res) => {

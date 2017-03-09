@@ -6,6 +6,7 @@ export class StatusService {
 
   constructor() { }
 
+  //发布问题状态
   issueQuestionStatus(question) {
 
     const av: any = AV;
@@ -25,6 +26,7 @@ export class StatusService {
       });
   }
 
+  //回答消息状态
   issueAnswerStatus(question) {
     const av: any = AV;
     const id = question.id,
@@ -43,6 +45,7 @@ export class StatusService {
       });
   }
 
+  //查询收件箱
   inboxQuery() {
     const av: any = AV;
     const query = av.Status.inboxQuery(AV.User.current());

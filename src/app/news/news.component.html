@@ -1,9 +1,12 @@
-<ul>
-  <li class="status-card">
-    <img class="avatar" />
-    <div class="status-content">
-      <span class="name"></span>
-      <span class="content"></span>
+<ul class="news-list">
+  <a *ngFor="let new of news" class="status-card" [routerLink]="['/question', new.data.image]" >
+    <div class="new-title">
+      <img class="avatar"  [src]="new.data.avatar.url"/>
+      <span class="name">{{ new.data.message }}</span>
+      <span class="date"> {{new.dateFromNow }} </span>
     </div>
-  </li>
+    <div class="new-content">
+      {{ new.data.content }}
+    </div>
+  </a>
 </ul>

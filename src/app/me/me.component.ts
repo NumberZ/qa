@@ -76,7 +76,6 @@ export class MeComponent implements OnInit {
       if (!result) return;
       this.questionService.issueQuestion(result)
         .then((res) => {
-          console.log(res);
           this.statusService.issueQuestionStatus(res);
           this.alert.showSuccess('发布成功!');
         }, (error) => {

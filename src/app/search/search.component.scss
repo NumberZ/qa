@@ -34,13 +34,12 @@
   position: relative;
   .follow-btn {
     position: absolute;
-    display: flex;
-    align-items: center;
+    display: block;
     top: 15px;
     right: 5%;
     outline: 0px;
     border: 1px solid #ff5722;
-    width: 60px;
+    min-width: 60px;
     height: 25px;
     font-size: 14px;
     border-radius: 3px;
@@ -63,10 +62,10 @@
     align-items: center;
   }
   .result-btn {
+    display: block;
     margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    line-height: 40px;
     background: #000;
     color: #FFEB3B;
     width: 100%;

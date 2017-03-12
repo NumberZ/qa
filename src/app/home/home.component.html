@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="likes">
+        <div *ngIf="question.views > 10" class="likes">
           <md-icon>whatshot</md-icon>
         </div>
       </div>

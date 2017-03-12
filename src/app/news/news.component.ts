@@ -13,12 +13,12 @@ export class NewsComponent implements OnInit {
     private statusService: StatusService
   ) { }
 
-  status = [];
+  news = [];
 
   ngOnInit() {
     this.statusService.inboxQuery()
       .then((res) => {
-        this.status = res;
+        this.news = res;
       })
       .catch(error => {
         console.error(error);

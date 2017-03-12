@@ -8,7 +8,7 @@
         <span>{{followee.introduction}}</span>
       </div>
     </div>
-    <button class="unfollow-btn" (click)="unfollow(followee.id)"><i class="material-icons">close</i>取消关注</button>
+    <button class="unfollow-btn" (click)="unfollow(followee.id)">取消关注</button>
   </li>
 </ul>
 <ul *ngIf="!loading && query === 'follower'" class="user-list">

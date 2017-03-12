@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { WxService } from '../wx.service';
 import { QuestionService } from '../question.service';
 import { AnswerService } from '../answer.service';
+import { StatusService } from '../status.service';
 
 import { AlertComponent } from '../alert/alert.component';
 import { ActivatedRoute, Params }   from '@angular/router';
@@ -14,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
   selector: 'app-question-detail',
   templateUrl: './question-detail.component.html',
   styleUrls: ['./question-detail.component.scss'],
-  providers: [WxService, QuestionService, AnswerService]
+  providers: [WxService, QuestionService, AnswerService, StatusService]
 })
 export class QuestionDetailComponent implements OnInit {
   @ViewChild(AlertComponent) alert: AlertComponent;
@@ -30,18 +31,22 @@ export class QuestionDetailComponent implements OnInit {
     owner: {
       username: ''
     },
+    content: '',
     id: '',
     to: null
   }
   answers = [];
   constructor(
+    public changeDetectorRef: ChangeDetectorRef,
     private wxService: WxService,
     private questionService: QuestionService,
     private answerService: AnswerService,
     private route: ActivatedRoute,
+    private statusService: StatusService
   ) { }
 
   ngOnInit(): void {
+    console.log(AV.User.current());
     const localUrl = encodeURIComponent(location.href.split('#')[0]);
     this.getQuestion();
     this.getAnswers();
@@ -72,12 +77,10 @@ export class QuestionDetailComponent implements OnInit {
   }
 
   getQuestion() {
-    
     console.time('getQuestion');
     this.questionService.getQuestion(this.qId)
       .then(question => {
         console.timeEnd('getQuestion');
-        console.log(question);
         this.question = question;
         this.increaseViews();
       });
@@ -94,6 +97,7 @@ export class QuestionDetailComponent implements OnInit {
       .then(answers => {
         this.answers = answers;
         this.answerLoading = false;
+        this.changeDetectorRef.detectChanges();
       });
   }
 
@@ -160,7 +164,13 @@ export class QuestionDetailComponent implements OnInit {
             return this.answerService.issueAnswer(this.question.id, res.url, res.duration)
           })
           .then((res) => {
-            location.reload();
+            const question: any = {
+              id: this.question.id,
+              name: this.question.owner.username,
+              content: this.question.content
+            }
+            this.statusService.issueAnswerStatus(question)
+            this.getAnswers();
           })
       },
       fail: (res) => {

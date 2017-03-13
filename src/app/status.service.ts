@@ -45,6 +45,26 @@ export class StatusService {
       });
   }
 
+  //发送私信
+  sendPrivate(result: string, id: string) {
+    const av: any = AV,
+      currentUser = AV.User.current(),
+      content = result,
+      username = currentUser.attributes.username,
+      ownerAvatar = currentUser.attributes.avatar.attributes.url;
+      const status = new av.Status(id, `${username}`);
+      status.set('content', content);
+      status.set('avatar', {url: ownerAvatar});
+      return Promise.resolve(av.Status.sendPrivateStatus(status, id)).
+        then(function(status){
+          //发送成功
+          console.dir(status);
+        }, function(err){
+          //发布失败
+          console.dir(err);
+      });
+  }
+
   //查询收件箱
   inboxQuery() {
     const av: any = AV;
@@ -60,4 +80,39 @@ export class StatusService {
         console.error(error);
       })
   } 
+
+  //查询私信
+  inboxPrivateQuery() {
+    const av: any = AV;
+    const query = av.Status.inboxQuery(AV.User.current(), 'private');
+    return Promise.resolve(query.find())
+      .then((res) => {
+        return res.map(ele => {
+          const dateFromNow = Util.fromNow(ele.createdAt);
+          return Object.assign({}, {dateFromNow}, ele)
+        })
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+  getNumberOfPublicNews() {
+    const av: any = AV;
+    return Promise.resolve(av.Status.countUnreadStatuses(AV.User.current())).then(function(result){
+     return result.unread;
+    }, function(err){
+        //查询失败
+    });
+  }
+
+  getNumberOfPrivateNews() {
+    const av: any = AV;
+    return Promise.resolve(av.Status.countUnreadStatuses(AV.User.current(), 'private')).then(function(result){
+     return result.unread;
+    }, function(err){
+        //查询失败
+    });   
+  }
+
 }

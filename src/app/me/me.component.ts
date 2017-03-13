@@ -36,7 +36,9 @@ export class MeComponent implements OnInit {
   initAvatarUrl: string;
   email: string;
   hiddenAvatarBtn = true;
-  numberOfPri: number;
+  numberOfPri: number = 0;
+  numberOfPublic: number = 0;
+  numberOfPrivate: number = 0;
 
   ngOnInit() {
     const currentUse = AV.User.current();
@@ -51,6 +53,8 @@ export class MeComponent implements OnInit {
       this.router.navigateByUrl('/login');
     }
     this.getNumberOfPrivate();
+    this.getNumberOfPublicNews();
+    this.getNumberOfPrivateNews();
     console.log('refresh');
   }
   // 退出登录
@@ -120,5 +124,25 @@ export class MeComponent implements OnInit {
       .catch(error => {
         console.error(error);
       })
+  }
+
+  getNumberOfPublicNews() {
+    this.statusService.getNumberOfPublicNews() 
+      .then((res: number) => {
+        this.numberOfPublic = res;
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+  getNumberOfPrivateNews() {
+     this.statusService.getNumberOfPrivateNews() 
+      .then((res: number) => {
+        this.numberOfPrivate = res;
+      })
+      .catch(error => {
+        console.error(error);
+      })   
   }
 }

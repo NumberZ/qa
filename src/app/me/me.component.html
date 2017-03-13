@@ -14,8 +14,22 @@
 </div>
 <ul class="user-setting">
   <li>
+    <a routerLink="/news" class="link" [queryParams]="{ for: 'public' }">
+      <span class="icon-container"><i class="material-icons">explore</i>发现</span>
+      <span *ngIf="numberOfPublic !== 0" class="number-pri">{{ numberOfPublic }}</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li> 
+  <li>
+    <a [routerLink]="[ '/news' ]" [queryParams]="{ for: 'private' }" class="link" >
+      <span class="icon-container"><i class="material-icons">email</i>私信</span>
+      <span *ngIf="numberOfPrivate !== 0" class="number-pri">{{ numberOfPrivate }}</span>
+      <md-icon>chevron_right</md-icon>
+    </a>
+  </li>
+  <li>
     <a [routerLink]="[ '/userlist' ]" [queryParams]="{ for: 'followee' }" class="link" >
-      <span class="icon-container"><i class="material-icons">favorite</i>我的关注</span>
+      <span class="icon-container"><i class="material-icons">visibility</i>我的关注</span>
       <md-icon>chevron_right</md-icon>
     </a>
   </li>
@@ -24,13 +38,7 @@
       <span class="icon-container"><i class="material-icons">face</i>我的粉丝</span>
       <md-icon>chevron_right</md-icon>
     </a>
-  </li>
-  <li>
-    <a routerLink="/news" class="link" >
-      <span class="icon-container"><i class="material-icons">poll</i>最新动态</span>
-      <md-icon>chevron_right</md-icon>
-    </a>
-  </li>  
+  </li> 
 </ul>
 
 <ul class="user-setting" style="margin-bottom: 50px">

@@ -1,17 +1,25 @@
+.total-number {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 20px;
+  color: #999;
+}
 .user-list {
   margin: 0;
   padding: 0px;
 }
 .user-card {
+  position: relative;
   background: #fff;
-  display: block;
   display: flex;
   align-items: center;
   font-size: 16px;
   padding: 20px;
-  margin-bottom: 10px;
-  border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  transition: all 0.5s ease-out;
+  &.active {
+      transform: translateX(-210px);
+  }
   .user-container {
     flex: 1;
     display: flex;
@@ -27,19 +35,34 @@
       justify-content: space-around;
     }
   }
-  .unfollow-btn {
-    outline: 0px;
+  .btns {
+    position: absolute;
     display: flex;
-    align-items: center;
-    border: 1px solid #ff5722;
-    width: 90px;
-    height: 30px;
-    font-size: 14px;
-    border-radius: 3px;
-    color: #ff5722;
-    background: #fff;
-    i {
+    top: 0px;
+    right: -210px;
+    top: -1px;
+    .btn {
       font-size: 16px;
+      color: #fff;
+      border: 0px;
+      height: 102px;
+      margin: 0px;
+      line-height: 100px;
+      outline: 0px;
+    }
+    
+    .unfollow-btn {
+      background: #F44336;
+      width: 90px;
+    }
+    .question-btn {
+      width: 60px;
+      background: #2196F3;
+    }
+    .private-btn {
+      width: 60px;
+      background: #FF9800;
     }
   }
+
 }

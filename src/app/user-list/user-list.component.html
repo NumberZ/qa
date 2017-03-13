@@ -1,14 +1,27 @@
 <app-loading *ngIf="loading"></app-loading>
+<div class="total-number">
+  共{{ totalNumber }}人
+</div>
 <ul *ngIf="!loading && query === 'followee'" class="user-list">
-  <li *ngFor="let followee of followees"class="user-card">
-    <div class="user-container">
+  <li *ngFor="let followee of followees" 
+      class="user-card"
+      [id]="followee.id"
+
+      >
+    <div class="user-container"
+      (touchstart)="triggerStart($event, followee.id)"
+      (touchend)="triggerEnd($event, followee.id)">
       <img class="avatar" [src]="followee.avatar?.attributes.url || './assets/avatar.jpg'" >
       <div class="user-content">
         <span>{{followee.username}}</span>
         <span>{{followee.introduction}}</span>
       </div>
     </div>
-    <button class="unfollow-btn" (click)="unfollow(followee.id)">取消关注</button>
+    <div class="btns">
+      <button class="btn question-btn" (click)="sendQuestion(followee.id)">提问</button>
+      <button class="btn private-btn" (click)="sendPrivate(followee.id)">私信</button>
+      <button class="btn unfollow-btn" (click)="unfollow(followee.id)">取消关注</button>
+    </div>
   </li>
 </ul>
 <ul *ngIf="!loading && query === 'follower'" class="user-list">
@@ -22,3 +35,4 @@
     </div>
   </li>
 </ul>
+<app-alert></app-alert>

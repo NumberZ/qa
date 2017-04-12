@@ -6,6 +6,19 @@
     min-height: 200px;
   }
 }
+.sort-select {
+  width: 100%;
+}
+md-select {
+  .md-select-trigger {
+    .md-select-placeholder {
+      display: none !important;
+    }
+    .md-select-value {
+      left: 15px !important;
+    }
+  }
+}
 .q-container {
   margin: 0px 0px 50px 0px;
   padding: 0px;

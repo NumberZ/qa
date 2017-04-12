@@ -24,6 +24,7 @@ export class QuestionDetailComponent implements OnInit {
   end: number;
   recordTimer;
   btnActive: boolean = false;
+  isFavorite: boolean = false;
   voice: any = {};
   answerLoading: boolean = true;
   qId = location.pathname.split('/').pop();
@@ -46,10 +47,10 @@ export class QuestionDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(AV.User.current());
     const localUrl = encodeURIComponent(location.href.split('#')[0]);
     this.getQuestion();
     this.getAnswers();
+    this.getFavorite();
     this.wxService.getSign(localUrl)
     .then((res) => {
       wx.config({
@@ -186,5 +187,46 @@ export class QuestionDetailComponent implements OnInit {
       return ;
     }
     audioEle.pause();
+  }
+
+  favorite() {
+    if (!this.getCurrentUserId()) {
+      this.alert.showFail('请先登录！');
+      return ;      
+    }
+    this.questionService.favorite(this.qId)
+      .then((res) => {
+        this.isFavorite = true;
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+  cancleFavorite() {
+    this.questionService.cancleFavorite(this.qId)
+      .then((res) => {
+        this.isFavorite = false;
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+  getFavorite() {
+    if (!this.getCurrentUserId()) {
+      return ;      
+    }
+    this.questionService.getFavoriteState(this.qId)
+      .then(res => {
+        if (res === true) {
+          this.isFavorite = true;
+        } else {
+          this.isFavorite = false;
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 }

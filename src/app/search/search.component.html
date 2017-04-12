@@ -1,9 +1,9 @@
 <div class="search-input-container">
-  <input name="searchKey" type="text" class="search-input" placeholder="输入你要搜索的用户" [(ngModel)]="searchKey" (keydown)="search($event)"/>
+  <input name="searchKey" type="text" class="search-input" placeholder="输入你感兴趣的用户或者问题" [(ngModel)]="searchKey" (keydown)="search($event)"/>
   <i *ngIf="searchKey !== ''" class="material-icons clear" (click)="clearSearchKey()">clear</i>
 </div>
 <div>
-  <div class="result-header">搜索结果</div>
+  <div *ngIf="result" class="result-header">用户</div>
   <div *ngIf="result" class="result-container">
     <img class="result-avatar" [src]="result.avatar" />
     <div class="result-name">{{ result.username }} | {{ result.introduction }}</div>
@@ -13,5 +13,39 @@
     <button *ngIf="isFollowing" class="follow-btn" (click)="unfollow()">取消关注</button>
   </div>
 </div>
+<div *ngIf="questions.length > 0" class="result-header">问题</div>
+<ul *ngIf="!loading" class="q-container">
+  <a *ngFor="let question of questions; let i = index" [routerLink]="['/question', question.id]"
+      class="question-card">
+      <div class="question-content">
+        <span>{{ question.content }} </span>
+        <i *ngIf="question.to" class="material-icons">account_circle</i>
+      </div>
+      <div class="owner-job">
+        {{ question.owner.username}}｜{{ question.owner.introduction }}
+      </div>
+      <div *ngIf="question.lastAnswer" class="answer-container">
+        <div class="answer-owner">
+          <audio [id]="i" [src]="question.lastAnswer.url"></audio>
+          <img class="avatar" [src]="question.lastAnswer.currentUser.avatar.url"/>
+          <div class="comment" (click)="playVoice($event, i)">
+            <i class="material-icons voice">volume_up</i>  
+            <span class="duration">{{question.lastAnswer.duration}}s</span>
+          </div>
+        </div>
+
+        <div *ngIf="question.views > 20" class="likes">
+          <md-icon>whatshot</md-icon>
+        </div>
+      </div>
+      <div *ngIf="!question.lastAnswer" class="noAnswer">
+        <h4>暂无回答！</h4>
+      </div>
+      <div class="card-bottom">
+        <span class="time">{{ question.dateFromNow }}</span>
+        <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>{{ question.favorites }}</span>
+      </div>
+  </a>
+</ul>
 <app-loading *ngIf="loading"></app-loading>
 <app-alert></app-alert>

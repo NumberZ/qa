@@ -74,3 +74,103 @@
     font-size: 16px;
   }
 }
+.q-container {
+  margin: 0px 0px 50px 0px;
+  padding: 0px;
+  background: #fafafa;
+  .sort-select {
+    width: 100%;
+    .md-select-placeholder {
+      display: none;
+    }
+  }
+  .question-card {
+    display: block;
+    padding: 15px 15px;
+    margin-bottom: 10px;
+    background: #fff;
+    .name {
+      color: #bdbdbd;
+    }
+    .question-content {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+    }
+    .owner-job {
+      font-size: 14px;
+      color: #bdbdbd;
+      margin-top: 5px;
+    }
+    .answer-container {
+      display: flex;
+      height: 60px;
+      justify-content: space-between;
+      align-items: center;
+      .answer-owner {
+        display: flex;
+        line-height: 0;
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+        }
+      }
+      .likes {
+        color: #F44336;
+      }
+      .comment {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        width: 200px;
+        height: 40px;
+        position: relative;
+        margin: 0px 0px 0px 10px;
+        background: #de6a6a;
+        border-radius: 20px;
+        &:after {
+          content: '';
+          width: 0;
+          height: 0;
+          position: absolute;
+          bottom: 0px;
+          left: 0;
+          border: solid 14px;
+          border-color: transparent  transparent #de6a6a transparent;
+          font-size: 0;
+        }
+        .duration {
+          margin-right: 10px;
+        }
+        .voice {
+          font-size: 30px;
+          margin-left: 15px;
+        }
+      }
+    }
+    .noAnswer {
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+      color: #000;
+      border-radius: 20px;
+    }
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #bdbdbd;
+      .time {
+        flex: 1
+      }
+      .material-icons{
+        height: 12px;
+        font-size: 12px;
+      }
+    }
+  }
+}

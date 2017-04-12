@@ -1,8 +1,21 @@
 <div class="home-top-banner">
   <img src="./assets/banner.jpeg" />
 </div>
-<app-loading *ngIf="loading"></app-loading>
-<ul *ngIf="!loading" class="q-container">
+<app-loading *ngIf="firstLoading"></app-loading>
+<!--<div style="width: 400px; word-wrap: break-word">{{ watch }}</div>-->
+<md-select placeholder="按指定类型排序" class="sort-select" [(ngModel)]="sort" (ngModelChange)="changeSort()" floatPlaceholder="never">
+  <md-option value="1">按时间排序</md-option>
+  <md-option value="2">按浏览数排序</md-option>
+  <md-option value="3">按点赞数排序</md-option>
+</md-select>
+<div class="dropload-up" [ngStyle]="domUpStyles">
+  <div [ngSwitch]="domUpState">
+    <div *ngSwitchCase="'refresh'" class="dropload-refresh">↓下拉刷新</div>
+    <div *ngSwitchCase="'update'" class="dropload-update">↑释放更新</div>
+    <div *ngSwitchCase="'load'" class="dropload-load"><span class="loading"></span>加载中...</div>
+  </div>
+</div>
+<div *ngIf="!firstLoading" class="q-container" (touchstart)="beginTouch($event)" (touchmove)="moveTouch($event)" (touchend)="endTouch($event)" (scroll)="onScroll($event)" id="container">
   <a *ngFor="let question of questions; let i = index" [routerLink]="['/question', question.id]"
       class="question-card">
       <div class="question-content">
@@ -22,7 +35,7 @@
           </div>
         </div>
 
-        <div *ngIf="question.views > 10" class="likes">
+        <div *ngIf="question.views > 20" class="likes">
           <md-icon>whatshot</md-icon>
         </div>
       </div>
@@ -31,8 +44,15 @@
       </div>
       <div class="card-bottom">
         <span class="time">{{ question.dateFromNow }}</span>
-        <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>2</span>
+        <span class="likes"><md-icon class="like-icon">thumb_up</md-icon>{{ question.favorites }}</span>
       </div>
   </a>
-</ul>
+  <div class="dropload-down" [ngStyle]="domDownStyles">
+    <div [ngSwitch]="domDownState">
+      <div *ngSwitchCase="'refresh'" class="dropload-refresh">↑上拉加载更多</div>
+      <div *ngSwitchCase="'load'" class="dropload-load"><span class="loading"></span>加载中...</div>
+      <div *ngSwitchCase="'noData'" class="dropload-noData">暂无数据</div>
+    </div>
+  </div>
+</div>
 

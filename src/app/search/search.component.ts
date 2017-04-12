@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   loading: boolean = false;
   result;
   isFollowing: boolean;
+  questions = [];
   constructor(
     private userService: UserService,
     private questionService: QuestionService,
@@ -36,19 +37,12 @@ export class SearchComponent implements OnInit {
   }
 
   search($event) {
-    this.result = null;
     if ($event.keyCode === 13) {
+      this.result = null;
+      this.questions = [];
       this.loading = true;
-      this.userService.searchUser(this.searchKey)
-        .then(res => {
-          this.loading = false;
-          this.result = res[0];
-          this.getFollowState();
-          console.log(this.result);
-        })
-        .catch((error) => {
-          console.error(error);
-        })
+      this.searchUser();
+      this.searchQuestion();
     }
   }
   
@@ -98,6 +92,29 @@ export class SearchComponent implements OnInit {
         } else {
           this.isFollowing = false;
         }
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+  searchUser() {
+    this.userService.searchUser(this.searchKey)
+      .then(res => {
+        this.loading = false;
+        this.result = res[0];
+        this.getFollowState();
+        console.log(this.result);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
+
+  searchQuestion() {
+    this.questionService.searchQuestion(this.searchKey)
+      .then(res => {
+        this.questions = res;
       })
       .catch(error => {
         console.error(error);
